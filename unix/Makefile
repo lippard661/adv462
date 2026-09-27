@@ -9,7 +9,7 @@
 # Without it the game reads adventure.data at every start and asks
 # "are you a wizard?" each time.
 #
-# adv462.f is generated from ../multics/adventure_.fortran by mkunix.py and
+# adv462.f is generated from ../Multics/adventure_.fortran by mkunix.py and
 # is checked in, so Python is needed only after changing the Multics source
 # ("make regen").
 
@@ -30,7 +30,7 @@ ADVFFLAGS=	-std=legacy -fdec-char-conversions -fdefault-integer-8 \
 		-ffixed-line-length-none -fno-range-check -w
 ADVDEFS=	-DADV462_DIR=\"$(SHAREDIR)\"
 
-DATA=		../multics/adventure.data
+DATA=		../Multics/adventure.data
 
 all: adv462 adventure.newgame
 

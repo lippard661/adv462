@@ -31,14 +31,14 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - named SUSPEND/RESTORE;
   - a news message dated May 1980;
   - a maximum score of 462.
-  Maintained by Jim Lippard (`jjl.sct`, `lippard.scouting@pco-multics`) as part of the Scouting project
+  Maintained by Jim Lippard (`jjl.sct`, `Lippard.Scouting@PCO-Multics`) as part of the Scouting project
   (Explorer Post 414) on the Phoenix Multics system. It ran from `>udd>MED>Kaiser>Lippard`, with storage
   quota courtesy of Wendell Garry Kaiser of Honeywell.
 - **Source file name:** `adventure_.fortran`. On Multics, a trailing underscore marks a subroutine rather
   than a command. The Multics Fortran compiler of 1980 names a main program's entry point `main_`, so
   `adventure_` could not be typed as a command at all. It must have been run by a small `adventure` command
   calling `adventure_$main_`, probably written in PL/I along with the routines missing from the listing
-  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`multics/`](multics/) has new ones.
+  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`Multics/`](Multics/) has new ones.
 
 No other copy of this version is known to exist.
 
@@ -47,10 +47,10 @@ No other copy of this version is known to exist.
 | Step | State |
 |---|---|
 | 1. Artifacts: transcriptions and notes | done, see [`artifacts/`](artifacts/) |
-| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | written, see [`multics/`](multics/); **not yet compiled on Multics** |
+| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | written, see [`Multics/`](Multics/); **not yet compiled on Multics** |
 | 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, not yet built on OpenBSD |
 
-[`multics/CHANGES.md`](multics/CHANGES.md) lists every change from the 1980 listings. Among them, the working copy
+[`Multics/CHANGES.md`](Multics/CHANGES.md) lists every change from the 1980 listings. Among them, the working copy
 finishes both of Jim's 1980 experiments on the listing: TAKE/DROP ALL, and packing text in base 90 instead of 64,
 which lets the database be in mixed case.
 
@@ -71,12 +71,12 @@ Every fix is made once, in the Multics source, and both versions read the same `
 adv462/
 ├── README.md                 # This file
 ├── LICENSE                   # BSD license for Jim Lippard's contributions
-├── artifacts/                # Transcriptions of the 1980 listings, uncorrected
+├── artifacts/                # Transcriptions of the listings (1980; GCOS 1983), uncorrected
 │   ├── README.md             # What each file is, and transcription conventions
-│   ├── multics/              # This game: adventure_.fortran, adventure.data, notes
+│   ├── Multics/              # This game: adventure_.fortran, adventure.data, notes
 │   │   └── transcription-source/   # Tab-separated source and render script for adventure.data
 │   └── gcos/                 # Related artifact: the separate GCOS port of Woods 350
-├── multics/                  # The working game for Multics (the master copy)
+├── Multics/                  # The working game for Multics (the master copy)
 │   ├── README.md             # How to build and run it
 │   ├── CHANGES.md            # Every change from the listings
 │   ├── adventure_.fortran    # The game, corrected
@@ -86,7 +86,7 @@ adv462/
 │   ├── addr.pl1, size.pl1, getime.pl1   # Other site routines
 │   └── build.ec              # Build script
 ├── unix/                     # gfortran port
-│   ├── mkunix.py             # Generates adv462.f from ../multics/adventure_.fortran
+│   ├── mkunix.py             # Generates adv462.f from ../Multics/adventure_.fortran
 │   ├── adv462.f              # Generated source
 │   ├── adv462_util.c         # Site routines in C
 │   ├── Makefile, adv462.6, README.md

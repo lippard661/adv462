@@ -1,18 +1,18 @@
 # Changes from the 1980 listings
 
-This directory holds the working copies. The transcriptions in [`../artifacts/multics/`](../artifacts/multics/)
+This directory holds the working copies. The transcriptions in [`../artifacts/Multics/`](../artifacts/Multics/)
 stay exactly as printed. Every change to `adventure_.fortran` is marked in the source with a comment beginning
 `c  2026:`. To see all the changes:
 
 ```sh
-diff ../artifacts/multics/adventure_.fortran adventure_.fortran
-diff ../artifacts/multics/adventure.data adventure.data
+diff ../artifacts/Multics/adventure_.fortran adventure_.fortran
+diff ../artifacts/Multics/adventure.data adventure.data
 ```
 
 ## Jim's unfinished enhancement: TAKE ALL / DROP ALL
 
 Jim's 1980 ink notes on the listing sketch an `all` object word, `objcount`, and new code at 8010, 9010 and
-9020 (see [`adventure_.fortran-handwritten-notes.md`](../artifacts/multics/adventure_.fortran-handwritten-notes.md)).
+9020 (see [`adventure_.fortran-handwritten-notes.md`](../artifacts/Multics/adventure_.fortran-handwritten-notes.md)).
 They are finished here, using his variable names and statement labels:
 
 - **Declarations.** `objcount` and `all` are added to `/msccom/`, and `all=vocab(code1('all  '),1)` is looked up
@@ -102,7 +102,7 @@ has the same characters and length as before.
 ## Database errata fixed in `adventure.data`
 
 The numbers match the ERRATA list in
-[`adventure.data-NOTES.md`](../artifacts/multics/adventure.data-NOTES.md).
+[`adventure.data-NOTES.md`](../artifacts/Multics/adventure.data-NOTES.md).
 
 1. **Location 185.** The row's last three numbers (`199 180 49`) belong to a separate row for 199. They are now
    one.

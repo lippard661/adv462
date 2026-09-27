@@ -29,7 +29,7 @@ MAKE_FLAGS =	SHAREDIR=${TRUEPREFIX}/share/adv462
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/adv462 ${PREFIX}/bin
 	${INSTALL_DATA_DIR} ${PREFIX}/share/adv462
-	${INSTALL_DATA} ${WRKDIST}/multics/adventure.data \
+	${INSTALL_DATA} ${WRKDIST}/Multics/adventure.data \
 	    ${WRKSRC}/adventure.newgame ${PREFIX}/share/adv462
 	${INSTALL_MAN} ${WRKSRC}/adv462.6 ${PREFIX}/man/man6
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the portable (gfortran) source adv462.f from ../multics/adventure_.fortran.
+"""Generate the portable (gfortran) source adv462.f from ../Multics/adventure_.fortran.
 
 The Multics source is the master copy.  This script applies the small set of
 changes needed for gfortran on Unix:
@@ -19,7 +19,7 @@ Build with: gfortran -std=legacy -fdec-char-conversions -fdefault-integer-8
 """
 import re, sys, os
 here = os.path.dirname(os.path.abspath(__file__))
-src = open(os.path.join(here, '..', 'multics', 'adventure_.fortran')).read().split('\n')
+src = open(os.path.join(here, '..', 'Multics', 'adventure_.fortran')).read().split('\n')
 if src[-1] == '': src.pop()
 
 def unit_bounds(lines, header_re):

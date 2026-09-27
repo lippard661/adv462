@@ -2,7 +2,7 @@
  * adv462_util.c -- the "site-supplied" routines that Gary Palter's
  * Adventure expects (see the comments near the top of the main program),
  * for gfortran on Unix.  The Multics versions are in
- * ../multics/adv462_util_.pl1.
+ * ../Multics/adv462_io_.pl1 (and addr, size, getime).
  *
  * The game keeps its whole state in eleven common blocks.  At startup it
  * calls addr and size to record where each block is and how long it is,

@@ -1,10 +1,10 @@
 # adv462 on Unix
 
-A port of the Multics game to gfortran, reading the same `../multics/adventure.data`.
+A port of the Multics game to gfortran, reading the same `../Multics/adventure.data`.
 
 | File | What it is |
 |---|---|
-| `mkunix.py` | Generates `adv462.f` from `../multics/adventure_.fortran`. The Multics source is the master copy; every fix is made there. |
+| `mkunix.py` | Generates `adv462.f` from `../Multics/adventure_.fortran`. The Multics source is the master copy; every fix is made there. |
 | `adv462.f` | The generated source (checked in, so Python is needed only to regenerate it) |
 | `adv462_util.c` | The site routines in C: `addr`, `size`, `ldcomn`, `svcomn`, and `advdat` (the default data path) |
 | `Makefile` | Builds `adv462` and `adventure.newgame` (the database read in and saved in magic mode), and installs both with the man page |
@@ -25,7 +25,7 @@ To play without installing:
 ADV462_DIR=. ./adv462
 ```
 
-`mkunix.py` changes very little: the list is at its top and in [`../multics/CHANGES.md`](../multics/CHANGES.md).
+`mkunix.py` changes very little: the list is at its top and in [`../Multics/CHANGES.md`](../Multics/CHANGES.md).
 The program runs with 64-bit integers (`-fdefault-integer-8`), since it was written for 36-bit words and packs
 five six-bit characters into one.
 
