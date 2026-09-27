@@ -11,10 +11,10 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
 |---|---|
 | `adventure_.fortran` | The game (Palter's engine plus Platt material and the 1980 local changes), corrected |
 | `adventure.data` | The database, corrected |
-| `adventure.pl1` | The `adventure` command (also named `adv462`) |
+| `adv462.pl1` | The `adv462` command, which calls `adventure_$main_` |
 | `adv462_io_.pl1` | `ldcomn`, `svcomn` (save and load games), `advatt`, `advdet` (attach and detach the database) |
 | `addr.pl1`, `size.pl1`, `getime.pl1` | The other routines Palter left to the site |
-| `build.ec` | Compiles everything and adds the names |
+| `build.ec` | Compiles everything |
 | `recase/` | The scripts that converted the database to mixed case (see CHANGES.md) |
 | `CHANGES.md` | What was changed and why |
 
@@ -28,11 +28,14 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
    exec_com build
    ```
 
-   This runs `fortran adventure_` and `pl1` on the five PL/I sources, then adds the entry names:
-   - `ldcomn`, `svcomn`, `advatt`, `advdet` on `adv462_io_`;
-   - `adv462` on `adventure`.
+   This runs `fortran adventure_` and `pl1` on the five PL/I sources.
+3. Bind the six object segments into `bound_adv462_`:
+   - `adventure_`, `adv462`, `adv462_io_`, `addr`, `size`, `getime`;
+   - retain all entry points;
+   - give the bound segment the added name `adv462`.
 
-   Rerunning it after the names exist only produces harmless "name already on entry" messages.
+   Keep `adventure.data` in the same directory as `bound_adv462_`. The game finds its database and
+   `adventure.newgame` in the directory of the segment that holds `adv462_io_`.
 
 ## First run: making the new-game image
 
@@ -64,7 +67,7 @@ The 1980 defaults still apply on Multics:
 Give other users:
 
 - `r` access to `adventure.data` and `adventure.newgame`;
-- `re` access to the object segments;
+- `re` access to `bound_adv462_`;
 - `s` access to the directory.
 
 For example:
@@ -72,10 +75,10 @@ For example:
 ```
 set_acl adventure.data r *.*.*
 set_acl adventure.newgame r *.*.*
-set_acl (adventure adv462_io_ addr size getime adventure_) re *.*.*
+set_acl bound_adv462_ re *.*.*
 ```
 
-Players type `>udd>Games>adv462>adventure`, or add the directory to their search rules.
+Players type `>udd>Games>adv462>adv462`, or add the directory to their search rules and type `adv462`.
 
 SUSPEND *name* saves a game as `name.adv462` in the player's home directory. RESTORE *name* continues it.
 

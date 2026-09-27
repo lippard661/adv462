@@ -135,12 +135,12 @@ command that ran `adventure_` did not survive either. They are written anew for 
 
 | File | Entries | What it does |
 |---|---|---|
-| `adventure.pl1` | `adventure`, `adv462` | The command. It calls `adventure_$main_`: the Fortran compiler names a main program's entry `main_`, which is why `adventure_` could never be typed as a command. On the way out it detaches the database switch. |
+| `adv462.pl1` | `adv462` | The command. It calls `adventure_$main_`: the Fortran compiler names a main program's entry `main_`, which is why `adventure_` could never be typed as a command. On the way out it detaches the database switch. |
 | `adv462_io_.pl1` | `ldcomn`, `svcomn`, `advatt`, `advdet` | Save and load the common blocks, and attach or detach `file01`. <ul><li>The new-game image `adventure.newgame` and the database live in the directory holding this segment.</li><li>Suspended games are `name.adv462` in the player's home directory.</li></ul> |
-| `addr.pl1` | `addr` | Stores a common block's address in `cmadrs`. |
+| `addr.pl1` | `addr` | Stores a common block's address (a packed pointer) in `cmadrs`. |
 | `size.pl1` | `size` | Words from one variable to another. |
 | `getime.pl1` | `getime` | Time of day (microseconds) to minutes. |
-| `build.ec` | | Compiles everything and adds the names. |
+| `build.ec` | | Compiles everything; the objects are then bound into `bound_adv462_`. |
 
 ## Unix-only differences
 

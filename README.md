@@ -38,7 +38,7 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   than a command. The Multics Fortran compiler of 1980 names a main program's entry point `main_`, so
   `adventure_` could not be typed as a command at all. It must have been run by a small `adventure` command
   calling `adventure_$main_`, probably written in PL/I along with the routines missing from the listing
-  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`Multics/`](Multics/) has new ones.
+  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`Multics/`](Multics/) has new ones, with the command named `adv462`.
 
 No other copy of this version is known to exist.
 
@@ -82,7 +82,7 @@ adv462/
 │   ├── CHANGES.md            # Every change from the listings
 │   ├── adventure_.fortran    # The game, corrected
 │   ├── adventure.data        # The database, corrected
-│   ├── adventure.pl1         # The "adventure" command
+│   ├── adv462.pl1            # The "adv462" command
 │   ├── adv462_io_.pl1        # Save/restore and database attachment
 │   ├── addr.pl1, size.pl1, getime.pl1   # Other site routines
 │   └── build.ec              # Build script

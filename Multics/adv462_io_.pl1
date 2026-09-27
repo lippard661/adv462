@@ -21,7 +21,7 @@
 	replaces attach_fortran_ssfile_, a 1980 routine that no longer exists.
 
    advdet ()
-	close and detach file01 (called by the adventure command when the
+	close and detach file01 (called by the adv462 command when the
 	game ends).
 
    Files:
@@ -34,8 +34,8 @@
 	logical     = bit (1) aligned
 	integer     = fixed bin (35)
 	fname (10)  = ten words, each holding one character in A1 format
-	cmadrs(4,11)= for each block, four words; the first two hold the
-		      block's address, stored there by addr.
+	cmadrs(4,11)= for each block, four words; the first holds the
+		      block's address (a packed pointer), stored by addr.
 */
 
 adv462_io_:
@@ -45,8 +45,8 @@ adv462_io_:
 dcl	system		bit (1) aligned parameter;
 dcl	fname		(10) char (4) aligned parameter;
 dcl	1 cmadrs		(11) aligned parameter,
-	  2 ptr_bits	bit (72),
-	  2 pad		bit (72);
+	  2 where		ptr unaligned,	/* set by addr */
+	  2 pad		(3) bit (36);
 dcl	cmszes		(11) fixed bin (35) parameter;
 dcl	unit		fixed bin (35) parameter;
 dcl	a_code		fixed bin (35) parameter;
@@ -79,7 +79,7 @@ dcl	iox_$look_iocb	entry (char (*), ptr, fixed bin (35));
 dcl	terminate_file_	entry (ptr, fixed bin (24), bit (*), fixed bin (35));
 dcl	user_info_$homedir	entry (char (*));
 
-dcl	(codeptr, null, rtrim, substr, unspec) builtin;
+dcl	(codeptr, null, rtrim, substr) builtin;
 
 %include access_mode_values;
 %include terminate_file;
@@ -111,7 +111,7 @@ ldcomn:
 
 	n = 0;
 	do i = 1 to NBLOCKS;
-	     unspec (block_ptr) = cmadrs (i).ptr_bits;
+	     block_ptr = cmadrs (i).where;
 	     do j = 0 to cmszes (i) - 1;
 		block_ptr -> word (j) = seg_ptr -> word (n + j);
 	     end;
@@ -135,7 +135,7 @@ svcomn:
 
 	n = 0;
 	do i = 1 to NBLOCKS;
-	     unspec (block_ptr) = cmadrs (i).ptr_bits;
+	     block_ptr = cmadrs (i).where;
 	     do j = 0 to cmszes (i) - 1;
 		seg_ptr -> word (n + j) = block_ptr -> word (j);
 	     end;
