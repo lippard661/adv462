@@ -3,7 +3,11 @@
 These are the working copies of the 1980 game, with the bugs fixed, Jim's TAKE ALL / DROP ALL finished, and
 new PL/I versions of the routines that did not survive. [CHANGES.md](CHANGES.md) lists every change.
 
-Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled or run on Multics.**
+Written for current Multics (MR12.8 on the DPS8M simulator). It compiles, binds and runs there.
+
+`fortran adventure_` gives two warnings (68, lines 115 and 119): the argument `dummy` of the statement functions
+`liq` and `dark` is never used. Those are Don Woods' original lines, and the 1980 build would have printed the same
+warnings, so they are left as they are.
 
 ## Files
 
@@ -93,14 +97,13 @@ Players type `>udd>Games>adv462>adv462`, or add the directory to their search ru
 
 SUSPEND *name* saves a game as `name.adv462` in the player's home directory. RESTORE *name* continues it.
 
-## If the compiler objects
+## Compiler notes
 
-The 1980 program was compiled by the "new" Fortran compiler of late 1979, which is the current one. Some things
-may trip it up:
+The 1980 program was compiled by the "new" Fortran compiler of late 1979, which is the current one. These points
+were checked when porting; none of them caused trouble on MR12.8:
 
-- **`and`, `or`, `xor`.** The program defines its own functions with these names. Today's compiler has typeless
-  built-ins of the same names that do the same thing. If it complains about the three function definitions,
-  delete them.
+- **`and`, `or`, `xor`.** The program defines its own functions with these names, and today's compiler also has
+  typeless built-ins of the same names that do the same thing. The compiler accepts the definitions.
 - **Free-form source.** The 1980 listing had three statements longer than 72 columns, so it was compiled in the
   default free form, not with `-card`. The working copy has none, but free form is still the intended way.
 - **The `!` character.** It now starts a comment, but here it only appears inside `1h!` Hollerith constants and
@@ -116,5 +119,3 @@ The PL/I side depends on the following:
   - `fname` as ten words each holding one character.
 - **Library routines.** It uses `initiate_file_`, `terminate_file_`, `hcs_$fs_get_path_name`,
   `user_info_$homedir` and `iox_`.
-
-Please report any errors, and they will be fixed here.

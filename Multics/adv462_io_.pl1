@@ -167,7 +167,7 @@ advatt:
 	call close_switch;
 	call iox_$attach_name (SWITCH, iocb_ptr, "vfile_ " || rtrim (dir) || ">adventure.data", null, a_code);
 	if a_code ^= 0 then
-	     call com_err_ (a_code, "adventure", "Attaching ^a to ^a>adventure.data.", SWITCH, dir);
+	     call com_err_ (a_code, "adv462", "Attaching ^a to ^a>adventure.data.", SWITCH, dir);
 	return;
 
 /* ------------------------------------------------------------------------ */

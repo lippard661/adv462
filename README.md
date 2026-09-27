@@ -47,7 +47,7 @@ No other copy of this version is known to exist.
 | Step | State |
 |---|---|
 | 1. Artifacts: transcriptions and notes | done, see [`artifacts/`](artifacts/) |
-| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, mixed-case text supported and the database converted to mixed case, PL/I wrapper and missing routines supplied | written, see [`Multics/`](Multics/); **not yet compiled on Multics** |
+| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, mixed-case text supported and the database converted to mixed case, PL/I wrapper and missing routines supplied | done, see [`Multics/`](Multics/); compiles, binds and runs on MR12.8 (DPS8M) |
 | 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, not yet built on OpenBSD |
 
 [`Multics/CHANGES.md`](Multics/CHANGES.md) lists every change from the 1980 listings. Among them, the working copy
