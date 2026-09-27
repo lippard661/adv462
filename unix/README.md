@@ -29,5 +29,10 @@ ADV462_DIR=. ./adv462
 The program runs with 64-bit integers (`-fdefault-integer-8`), since it was written for 36-bit words and packs
 five characters into one (in base 90, so capitals fit).
 
+The game looks for `adventure.data` and `adventure.newgame` first in the writable game directory `GAMEDIR`
+(default `/usr/games/adv462`), then in `SHAREDIR` (default `/usr/local/share/adv462`). Magic mode saves a new
+`adventure.newgame` in `GAMEDIR` if that directory exists. This is the Unix counterpart of `>site>adv462_dir` on
+Multics. Setting `ADV462_DIR` or `ADV462_DATA` overrides both directories.
+
 Suspended games go in `~/.adv462/` (or `$ADV462_SAVEDIR`). They are raw images of the common blocks, so they
 only load into a build of the same version on the same kind of machine. A file of the wrong length is refused.

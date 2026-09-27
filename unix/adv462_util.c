@@ -21,12 +21,19 @@
  * the eleven blocks, one after another; a file whose length doesn't match
  * the current program's blocks is rejected.
  *
- * Files:
- *   database:      $ADV462_DATA (default ADV462_DIR/adventure.data)
- *   system image:  $ADV462_DIR/adventure.newgame
- *                  (default /usr/local/share/adv462/adventure.newgame)
+ * Files, as on Multics (where >site>adv462_dir plays the part of the
+ * game directory):
+ *   database:      $ADV462_DATA; else GAMEDIR/adventure.data if it exists;
+ *                  else SHAREDIR/adventure.data
+ *   system image:  $ADV462_DIR/adventure.newgame if ADV462_DIR is set;
+ *                  else read from GAMEDIR if it is there, else SHAREDIR;
+ *                  magic mode writes to GAMEDIR if that directory exists,
+ *                  else SHAREDIR
  *   saved games:   $ADV462_SAVEDIR/<name>.adv462
  *                  (default $HOME/.adv462/<name>.adv462; name defaults to "game")
+ * SHAREDIR (ADV462_DIR at compile time, default /usr/local/share/adv462)
+ * holds the files as installed; GAMEDIR (ADV462_GAMEDIR, default
+ * /usr/games/adv462) is the writable game directory.
  */
 
 #include <errno.h>
@@ -44,11 +51,35 @@ typedef int64_t fint;           /* Fortran INTEGER with -fdefault-integer-8 */
 #ifndef ADV462_DIR
 #define ADV462_DIR "/usr/local/share/adv462"
 #endif
+#ifndef ADV462_GAMEDIR
+#define ADV462_GAMEDIR "/usr/games/adv462"
+#endif
+
+/* Does path exist as a regular file (want_dir 0) or directory (1)? */
+static int
+exists(const char *path, int want_dir)
+{
+	struct stat sb;
+
+	if (stat(path, &sb) != 0)
+		return 0;
+	return want_dir ? S_ISDIR(sb.st_mode) : S_ISREG(sb.st_mode);
+}
+
+/* dir/name if it exists in the game directory, else in the share directory. */
+static void
+find_file(const char *name, char *path, size_t len)
+{
+	snprintf(path, len, "%s/%s", ADV462_GAMEDIR, name);
+	if (!exists(path, 0))
+		snprintf(path, len, "%s/%s", ADV462_DIR, name);
+}
 
 /*
- * call advdat(path): the default database path, $(ADV462_DIR)/adventure.data,
- * blank-padded into a Fortran CHARACTER variable (gfortran passes its length
- * as a hidden trailing argument).
+ * call advdat(path): the default database path (the game directory's
+ * adventure.data if there is one, else the share directory's), blank-padded
+ * into a Fortran CHARACTER variable (gfortran passes its length as a hidden
+ * trailing argument).
  */
 void
 advdat_(char *buf, size_t len)
@@ -56,7 +87,7 @@ advdat_(char *buf, size_t len)
 	char path[1024];
 	size_t n;
 
-	snprintf(path, sizeof(path), "%s/adventure.data", ADV462_DIR);
+	find_file("adventure.data", path, sizeof(path));
 	n = strlen(path);
 	if (n > len)
 		n = len;
@@ -83,7 +114,7 @@ size_(void *first, void *last)
  * one character in the first byte of each 8-byte word.
  */
 static int
-image_path(fint system, const fint *fname, char *path, size_t len)
+image_path(fint system, int saving, const fint *fname, char *path, size_t len)
 {
 	const char *dir;
 	char name[NAMECHARS + 1];
@@ -91,10 +122,16 @@ image_path(fint system, const fint *fname, char *path, size_t len)
 
 	if (system) {
 		dir = getenv("ADV462_DIR");
-		if (dir == NULL || *dir == '\0')
-			dir = ADV462_DIR;
-		return snprintf(path, len, "%s/adventure.newgame", dir) <
-		    (int)len ? 0 : -1;
+		if (dir != NULL && *dir != '\0')
+			return snprintf(path, len, "%s/adventure.newgame", dir) <
+			    (int)len ? 0 : -1;
+		if (!saving)
+			find_file("adventure.newgame", path, len);
+		else
+			snprintf(path, len, "%s/adventure.newgame",
+			    exists(ADV462_GAMEDIR, 1) ? ADV462_GAMEDIR :
+			    ADV462_DIR);
+		return 0;
 	}
 
 	for (i = 0; i < NAMECHARS; i++) {
@@ -154,7 +191,7 @@ ldcomn_(fint *l, fint *fname, fint *cmadrs, fint *cmszes)
 	long want, got;
 	int i;
 
-	if (image_path(*l, fname, path, sizeof(path)) != 0)
+	if (image_path(*l, 0, fname, path, sizeof(path)) != 0)
 		return;
 	if ((fp = fopen(path, "rb")) == NULL) {
 		if (!*l)
@@ -190,7 +227,7 @@ svcomn_(fint *l, fint *fname, fint *cmadrs, fint *cmszes)
 	FILE *fp;
 	int i, ok = 1;
 
-	if (image_path(*l, fname, path, sizeof(path)) != 0 ||
+	if (image_path(*l, 1, fname, path, sizeof(path)) != 0 ||
 	    (fp = fopen(path, "wb")) == NULL) {
 		printf(" I am sorry, but I can't create or find your file.\n");
 		return;

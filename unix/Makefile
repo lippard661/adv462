@@ -17,6 +17,9 @@
 PREFIX?=	/usr/local
 BINDIR?=	$(PREFIX)/bin
 SHAREDIR?=	$(PREFIX)/share/adv462
+# The writable game directory: magic mode saves adventure.newgame here if the
+# directory exists, and files here are used in preference to SHAREDIR's.
+GAMEDIR?=	/usr/games/adv462
 MANDIR?=	$(PREFIX)/man/man6
 DESTDIR?=
 
@@ -29,7 +32,7 @@ CFLAGS?=	-O
 # gfortran accept 1970s Fortran.
 ADVFFLAGS=	-std=legacy -fdec-char-conversions -fdefault-integer-8 \
 		-ffixed-line-length-none -fno-range-check -w
-ADVDEFS=	-DADV462_DIR=\"$(SHAREDIR)\"
+ADVDEFS=	-DADV462_DIR=\"$(SHAREDIR)\" -DADV462_GAMEDIR=\"$(GAMEDIR)\"
 
 DATA=		../Multics/adventure.data
 
@@ -62,6 +65,7 @@ install: all
 	install -m 644 $(DATA) $(DESTDIR)$(SHAREDIR)/adventure.data
 	install -m 644 adventure.newgame $(DESTDIR)$(SHAREDIR)/adventure.newgame
 	install -m 644 adv462.6 $(DESTDIR)$(MANDIR)/adv462.6
+	install -d -m 775 $(DESTDIR)$(GAMEDIR)
 
 clean:
 	rm -f adv462 *.o adventure.newgame

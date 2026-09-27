@@ -26,7 +26,8 @@ MODFORTRAN_COMPILER =	gfortran
 # mkunix.py and checked in) and its Makefile are in unix/
 WRKSRC =	${WRKDIST}/unix
 
-MAKE_FLAGS =	SHAREDIR=${TRUEPREFIX}/share/adv462
+# GAMEDIR is the writable game directory (created by pkg/PLIST)
+MAKE_FLAGS =	SHAREDIR=${TRUEPREFIX}/share/adv462 GAMEDIR=/usr/games/adv462
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/adv462 ${PREFIX}/bin
