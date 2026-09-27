@@ -34,8 +34,20 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
    - retain all entry points;
    - give the bound segment the added name `adv462`.
 
-   Keep `adventure.data` in the same directory as `bound_adv462_`. The game finds its database and
-   `adventure.newgame` in the directory of the segment that holds `adv462_io_`.
+   Keep `adventure.data` in the same directory as `bound_adv462_`, or in the site directory described below.
+
+## Where the files go
+
+| File | Where it's looked for | Where it's written |
+|---|---|---|
+| `adventure.data` | `>site>adv462_dir`, then the directory holding `bound_adv462_` | never written |
+| `adventure.newgame` | `>site>adv462_dir`, then the directory holding `bound_adv462_` | `>site>adv462_dir` if that directory exists, else the directory holding `bound_adv462_` |
+| `name.adv462` (SUSPEND/RESTORE) | the player's home directory | the player's home directory |
+
+- **In a library such as `>aml`:** put `bound_adv462_` and `adventure.data` in the library. Create
+  `>site>adv462_dir` for the image, writable by whoever will run magic mode.
+- **A private copy:** needs no site directory; everything stays together.
+- **Links:** the game directory is where `bound_adv462_` really is, even when players reach it through a link.
 
 ## First run: making the new-game image
 
@@ -53,7 +65,7 @@ oh dear, you really *are* a wizard! ...
 Then answer the maintenance questions: hours, holiday, short game length, magic word, restart latency and
 message of the day. Pressing return keeps a default.
 
-`adventure.newgame` is then saved in the game directory, which needs `sma` access for you. Later games start
+`adventure.newgame` is then saved in `>site>adv462_dir` if it exists, otherwise in the game directory. You need `sma` access to whichever it is. Later games start
 from it straight away. Magic mode ("magic mode" as the first command) saves a new one.
 
 The 1980 defaults still apply on Multics:

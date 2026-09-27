@@ -25,8 +25,13 @@
 	game ends).
 
    Files:
-	adventure.data and adventure.newgame live in the directory that holds
-	this segment (the game directory).
+	adventure.data and adventure.newgame are looked for first in the site
+	directory >site>adv462_dir, then in the directory that holds this
+	segment (the game directory).  Magic mode writes adventure.newgame to
+	>site>adv462_dir if that directory exists, else to the game directory.
+	So an installation in a library such as >aml keeps the program and
+	database there, and the writable image in >site>adv462_dir; a private
+	copy needs no site directory at all.
 	Saved games are <name>.adv462 in the player's home directory, where
 	<name> is the word given to SUSPEND/RESTORE ("game" if none).
 
@@ -65,9 +70,14 @@ dcl	word		(0:261119) fixed bin (35) based;
 
 dcl	NBLOCKS		fixed bin internal static options (constant) init (11);
 dcl	SWITCH		char (6) internal static options (constant) init ("file01");
+dcl	SITE_PARENT	char (5) internal static options (constant) init (">site");
+dcl	SITE_ENTRY	char (10) internal static options (constant) init ("adv462_dir");
+dcl	SITE_DIR		char (16) internal static options (constant) init (">site>adv462_dir");
 
 dcl	com_err_		entry options (variable);
 dcl	hcs_$fs_get_path_name entry (ptr, char (*), fixed bin, char (*), fixed bin (35));
+dcl	hcs_$status_minf	entry (char (*), char (*), fixed bin (1), fixed bin (2), fixed bin (24),
+			fixed bin (35));
 dcl	initiate_file_	entry (char (*), char (*), bit (*), ptr, fixed bin (24), fixed bin (35));
 dcl	initiate_file_$create entry (char (*), char (*), bit (*), ptr, bit (1) aligned, fixed bin (24),
 			fixed bin (35));
@@ -90,7 +100,7 @@ dcl	(codeptr, null, rtrim, substr) builtin;
 ldcomn:
      entry (system, fname, cmadrs, cmszes);
 
-	call file_name;
+	call file_name ("0"b);
 	call initiate_file_ (dir, ename, R_ACCESS, seg_ptr, bit_count, code);
 	if seg_ptr = null then do;
 	     if ^system then
@@ -126,7 +136,7 @@ ldcomn:
 svcomn:
      entry (system, fname, cmadrs, cmszes);
 
-	call file_name;
+	call file_name ("1"b);
 	call initiate_file_$create (dir, ename, RW_ACCESS, seg_ptr, created, bit_count, code);
 	if seg_ptr = null then do;
 	     call ioa_ ("^/ I am sorry, but I can't create or find your file.");
@@ -153,7 +163,7 @@ svcomn:
 advatt:
      entry (unit, a_code);
 
-	call game_dir;
+	call find_file ("adventure.data");
 	call close_switch;
 	call iox_$attach_name (SWITCH, iocb_ptr, "vfile_ " || rtrim (dir) || ">adventure.data", null, a_code);
 	if a_code ^= 0 then
@@ -170,16 +180,21 @@ advdet:
 
 /* ------------------------------------------------------------------------ */
 
-/* Set dir and ename for ldcomn/svcomn. */
+/* Set dir and ename for ldcomn (saving = "0"b) or svcomn (saving = "1"b). */
 
 file_name:
-     procedure;
+     procedure (saving);
 
+dcl	saving		bit (1) aligned parameter;
 dcl	c		char (1);
 dcl	k		fixed bin;
 
 	if system then do;
-	     call game_dir;
+	     if ^saving then
+		call find_file ("adventure.newgame");
+	     else if exists (SITE_PARENT, SITE_ENTRY, 2) then
+		dir = SITE_DIR;
+	     else call game_dir;
 	     ename = "adventure.newgame";
 	     return;
 	end;
@@ -201,6 +216,37 @@ done:
 	ename = rtrim (ename) || ".adv462";
 
      end file_name;
+
+/* Set dir to the directory holding name: the site directory if it is
+   there, else the game directory. */
+
+find_file:
+     procedure (name);
+
+dcl	name		char (*) parameter;
+
+	if exists (SITE_DIR, name, 1) then
+	     dir = SITE_DIR;
+	else call game_dir;
+
+     end find_file;
+
+/* Does dname>ename exist as a segment (want_type 1) or directory (2)?
+   Links are chased. */
+
+exists:
+     procedure (dname, ename, want_type) returns (bit (1) aligned);
+
+dcl	(dname, ename)	char (*) parameter;
+dcl	want_type		fixed bin parameter;
+dcl	type		fixed bin (2);
+dcl	bc		fixed bin (24);
+dcl	c		fixed bin (35);
+
+	call hcs_$status_minf (dname, ename, 1, type, bc, c);
+	return (c = 0 & type = want_type);
+
+     end exists;
 
 /* The game directory: where this segment lives. */
 
