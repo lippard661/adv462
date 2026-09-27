@@ -1,4 +1,5 @@
 # Makefile for adv462 on Unix (gfortran).  Works with GNU make and BSD make.
+# Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
 #
 #   make                  build ./adv462 and adventure.newgame
 #   make install          install under $(PREFIX) (default /usr/local)

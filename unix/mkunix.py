@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate the portable (gfortran) source adv462.f from ../Multics/adventure_.fortran.
+Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
 
 The Multics source is the master copy.  This script applies the small set of
 changes needed for gfortran on Unix:

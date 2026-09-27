@@ -1,3 +1,5 @@
+# Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
+
 COMMENT =	Adventure 1.2 (462 points) from Phoenix Multics, 1980
 
 V =		1.0

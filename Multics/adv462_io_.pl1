@@ -1,9 +1,9 @@
 /* adv462_io_ -- the file routines that Gary Palter's Adventure expects from
-   its "site", for Multics.  Written 2026 for adv462 (see README.md); the 1980
-   originals did not survive.
+   its "site", for Multics.  Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard,
+   for adv462 (see README.md); the 1980 originals did not survive.
 
-   Entries (each is also an added name on this segment, so that the Fortran
-   program's calls find them):
+   Entries (synonyms of this component in bound_adv462_, so that the Fortran
+   program's calls to them are resolved inside the bound segment):
 
    ldcomn (system, fname, cmadrs, cmszes)
 	load the eleven common blocks from a saved image.  system = .true.

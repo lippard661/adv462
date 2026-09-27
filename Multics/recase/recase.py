@@ -6,6 +6,7 @@ For each message, word casing is transferred from reference texts where a
 capitalization.  Only letter case changes; every line keeps its length.
 Usage: recase.py ADVENT_DIR in.data out.data report.txt
 (ADVENT_DIR: a checkout of https://github.com/Quuxplusone/Advent)
+Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
 """
 import re, sys, collections, json
 

@@ -4,6 +4,8 @@
  * for gfortran on Unix.  The Multics versions are in
  * ../Multics/adv462_io_.pl1 (and addr, size, getime).
  *
+ * Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
+ *
  * The game keeps its whole state in eleven common blocks.  At startup it
  * calls addr and size to record where each block is and how long it is,
  * then:

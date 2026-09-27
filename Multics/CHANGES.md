@@ -140,7 +140,7 @@ command that ran `adventure_` did not survive either. They are written anew for 
 | `addr.pl1` | `addr` | Stores a common block's address (a packed pointer) in `cmadrs`. |
 | `size.pl1` | `size` | Words from one variable to another. |
 | `getime.pl1` | `getime` | Time of day (microseconds) to minutes. |
-| `build.ec` | | Compiles everything; the objects are then bound into `bound_adv462_`. |
+| `build.ec`, `bound_adv462_.bind` | | Compile everything and bind it into `bound_adv462_`. The bindfile makes `ldcomn`, `svcomn`, `advatt` and `advdet` synonyms of `adv462_io_`, so the calls are resolved inside the bound segment, and adds only the name `adv462`. |
 
 ## Unix-only differences
 

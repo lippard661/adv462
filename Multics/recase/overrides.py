@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Hand corrections applied after recase.py.  Each entry replaces the text
-(columns 9 on) of a line whose number field and lowercase text match."""
+(columns 9 on) of a line whose number field and lowercase text match.
+Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard.
+"""
 import sys
 
 O = [

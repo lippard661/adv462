@@ -85,7 +85,8 @@ adv462/
 │   ├── adv462.pl1            # The "adv462" command
 │   ├── adv462_io_.pl1        # Save/restore and database attachment
 │   ├── addr.pl1, size.pl1, getime.pl1   # Other site routines
-│   └── build.ec              # Build script
+│   ├── bound_adv462_.bind    # Bindfile
+│   └── build.ec              # Builds and binds bound_adv462_
 ├── unix/                     # gfortran port
 │   ├── mkunix.py             # Generates adv462.f from ../Multics/adventure_.fortran
 │   ├── adv462.f              # Generated source

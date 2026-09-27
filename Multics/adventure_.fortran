@@ -1,4 +1,8 @@
 c      Adventure
+c
+c      2026-09-27: this working copy of the 1980 listing was corrected and
+c      completed by Claude Opus 5.5 at the direction of Jim Lippard.  every
+c      change is marked with a comment beginning "c  2026:".  see CHANGES.md.
 
 c      =====================================
 c      Current Limits:

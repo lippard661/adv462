@@ -1,5 +1,6 @@
 /* size -- one of the "site-supplied" routines Gary Palter's Adventure needs.
-   Written 2026 for adv462; the 1980 original did not survive.
+   Written 2026-09-27 by Claude Opus 5.5 at the direction of Jim Lippard,
+   for adv462; the 1980 original did not survive.
 
 	n = size (first, last)
 

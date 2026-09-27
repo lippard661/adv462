@@ -14,7 +14,8 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
 | `adv462.pl1` | The `adv462` command, which calls `adventure_$main_` |
 | `adv462_io_.pl1` | `ldcomn`, `svcomn` (save and load games), `advatt`, `advdet` (attach and detach the database) |
 | `addr.pl1`, `size.pl1`, `getime.pl1` | The other routines Palter left to the site |
-| `build.ec` | Compiles everything |
+| `build.ec` | Compiles everything and binds it into `bound_adv462_` |
+| `bound_adv462_.bind` | The bindfile |
 | `recase/` | The scripts that converted the database to mixed case (see CHANGES.md) |
 | `CHANGES.md` | What was changed and why |
 
@@ -28,11 +29,9 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
    exec_com build
    ```
 
-   This runs `fortran adventure_` and `pl1` on the five PL/I sources.
-3. Bind the six object segments into `bound_adv462_`:
-   - `adventure_`, `adv462`, `adv462_io_`, `addr`, `size`, `getime`;
-   - retain all entry points;
-   - give the bound segment the added name `adv462`.
+   This runs `fortran adventure_` and `pl1` on the five PL/I sources. It then puts the six objects and
+   `bound_adv462_.bind` into `bound_adv462_.archive` and binds `bound_adv462_`, whose added name `adv462`
+   is the command.
 
    Keep `adventure.data` in the same directory as `bound_adv462_`, or in the site directory described below.
 
