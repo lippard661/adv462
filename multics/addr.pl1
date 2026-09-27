@@ -1,0 +1,31 @@
+/* addr -- one of the "site-supplied" routines Gary Palter's Adventure needs.
+   Written 2026 for adv462; the 1980 original did not survive.
+
+	call addr (x, cmadrs (1, n))
+
+   stores the address of x (the first word of common block n) in the first
+   two words of cmadrs (1, n).  ldcomn and svcomn (adv462_io_) read it back.
+   x arrives from Fortran without a descriptor. */
+
+addr:
+     procedure (x, where);
+
+dcl	x		fixed bin (35) parameter;
+dcl	where		bit (72) aligned parameter;
+
+	where = pointer_bits (x);
+	return;
+
+/* The procedure's own name hides the builtin, so get at it in here. */
+
+pointer_bits:
+     procedure (y) returns (bit (72));
+
+dcl	y		fixed bin (35) parameter;
+dcl	(addr, unspec)	builtin;
+
+	return (unspec (addr (y)));
+
+     end pointer_bits;
+
+     end addr;

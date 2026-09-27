@@ -3,8 +3,8 @@
 **Adventure 1.2 (462 points)**, the version of Colossal Cave Adventure that ran on Honeywell's Phoenix
 Multics system in 1980.
 
-This repository preserves the surviving listings of that game as transcribed artifacts. It is also working
-toward a playable version on Multics and, if feasible, on OpenBSD, following the pattern of
+This repository preserves the surviving listings of that game as transcribed artifacts, and makes the game
+playable again on Multics and on Unix (with an OpenBSD port), following the pattern of
 [adv550](https://github.com/lippard661/adv550).
 
 ## What this version is
@@ -35,9 +35,10 @@ toward a playable version on Multics and, if feasible, on OpenBSD, following the
   (Explorer Post 414) on the Phoenix Multics system. It ran from `>udd>MED>Kaiser>Lippard`, with storage
   quota courtesy of Wendell Garry Kaiser of Honeywell.
 - **Source file name:** `adventure_.fortran`. On Multics, a trailing underscore marks a subroutine rather
-  than a command. The Fortran program was presumably invoked from a small PL/I `adventure` command, which
-  would also have supplied the routines missing from the listing (`addr`, `size`, `ldcomn`, `svcomn`,
-  `getime`). That wrapper does not survive.
+  than a command. The Multics Fortran compiler of 1980 names a main program's entry point `main_`, so
+  `adventure_` could not be typed as a command at all. It must have been run by a small `adventure` command
+  calling `adventure_$main_`, probably written in PL/I along with the routines missing from the listing
+  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`multics/`](multics/) has new ones.
 
 No other copy of this version is known to exist.
 
@@ -46,8 +47,21 @@ No other copy of this version is known to exist.
 | Step | State |
 |---|---|
 | 1. Artifacts: transcriptions and notes | done, see [`artifacts/`](artifacts/) |
-| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | in progress |
-| 3. OpenBSD / gfortran port and package, reading the same data file | planned |
+| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | written, see [`multics/`](multics/); **not yet compiled on Multics** |
+| 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, not yet built on OpenBSD |
+
+[`multics/CHANGES.md`](multics/CHANGES.md) lists every change from the 1980 listings.
+
+### Porting to Unix
+
+The port was feasible with little change, so it is a generated copy rather than a fork:
+
+- `unix/mkunix.py` makes `unix/adv462.f` from the Multics source by replacing a few machine-dependent routines;
+- a small C file supplies the save and restore routines;
+- gfortran compiles the 1970s Fortran with `-std=legacy` and 64-bit integers, since the program packs five
+  six-bit characters into a 36-bit word.
+
+Every fix is made once, in the Multics source, and both versions read the same `adventure.data`.
 
 ## Directory structure
 
@@ -55,11 +69,26 @@ No other copy of this version is known to exist.
 adv462/
 ├── README.md                 # This file
 ├── LICENSE                   # BSD license for Jim Lippard's contributions
-└── artifacts/                # Transcriptions of the 1980 listings, uncorrected
-    ├── README.md             # What each file is, and transcription conventions
-    ├── multics/              # This game: adventure_.fortran, adventure.data, notes
-    │   └── transcription-source/   # Tab-separated source and render script for adventure.data
-    └── gcos/                 # Related artifact: the separate GCOS port of Woods 350
+├── artifacts/                # Transcriptions of the 1980 listings, uncorrected
+│   ├── README.md             # What each file is, and transcription conventions
+│   ├── multics/              # This game: adventure_.fortran, adventure.data, notes
+│   │   └── transcription-source/   # Tab-separated source and render script for adventure.data
+│   └── gcos/                 # Related artifact: the separate GCOS port of Woods 350
+├── multics/                  # The working game for Multics (the master copy)
+│   ├── README.md             # How to build and run it
+│   ├── CHANGES.md            # Every change from the listings
+│   ├── adventure_.fortran    # The game, corrected
+│   ├── adventure.data        # The database, corrected
+│   ├── adventure.pl1         # The "adventure" command
+│   ├── adv462_io_.pl1        # Save/restore and database attachment
+│   ├── addr.pl1, size.pl1, getime.pl1   # Other site routines
+│   └── build.ec              # Build script
+├── unix/                     # gfortran port
+│   ├── mkunix.py             # Generates adv462.f from ../multics/adventure_.fortran
+│   ├── adv462.f              # Generated source
+│   ├── adv462_util.c         # Site routines in C
+│   ├── Makefile, adv462.6, README.md
+└── openbsd/                  # OpenBSD port (Makefile, pkg/DESCR, pkg/PLIST)
 ```
 
 ## Licensing and credits
@@ -68,4 +97,4 @@ The BSD license covers Jim Lippard's contributions: the transcriptions, notes, f
 Will Crowther and Don Woods retain whatever rights they hold in Adventure, Gary Palter in his Multics port,
 and Dave Platt in his game content.
 
-Transcription and analysis by Jim Lippard, with assistance from Claude (Anthropic), September 2026.
+Transcription, analysis, fixes and porting by Jim Lippard, with assistance from Claude (Anthropic), September 2026.

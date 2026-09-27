@@ -1,0 +1,105 @@
+# Adventure 1.2 (462 points) on Multics
+
+These are the working copies of the 1980 game, with the bugs fixed, Jim's TAKE ALL / DROP ALL finished, and
+new PL/I versions of the routines that did not survive. [CHANGES.md](CHANGES.md) lists every change.
+
+Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled or run on Multics.**
+
+## Files
+
+| File | What it is |
+|---|---|
+| `adventure_.fortran` | The game (Palter's engine plus Platt material and the 1980 local changes), corrected |
+| `adventure.data` | The database, corrected |
+| `adventure.pl1` | The `adventure` command (also named `adv462`) |
+| `adv462_io_.pl1` | `ldcomn`, `svcomn` (save and load games), `advatt`, `advdet` (attach and detach the database) |
+| `addr.pl1`, `size.pl1`, `getime.pl1` | The other routines Palter left to the site |
+| `build.ec` | Compiles everything and adds the names |
+| `CHANGES.md` | What was changed and why |
+
+## Building
+
+1. Copy the files into a directory on Multics, for example `>udd>Games>adv462`. This directory becomes the
+   game directory, so `adventure.data` must stay in it.
+2. In that directory, run:
+
+   ```
+   exec_com build
+   ```
+
+   This runs `fortran adventure_` and `pl1` on the five PL/I sources, then adds the entry names:
+   - `ldcomn`, `svcomn`, `advatt`, `advdet` on `adv462_io_`;
+   - `adv462` on `adventure`.
+
+   Rerunning it after the names exist only produces harmless "name already on entry" messages.
+
+## First run: making the new-game image
+
+With no `adventure.newgame` yet, the first run reads `adventure.data`, reports its table space, and then asks
+"are you a wizard?". This is Palter's first-time setup. Answer the questions as follows:
+
+```
+are you a wizard?  yes
+prove it!  say the magic word!  dwarf
+that is not what i thought it was.  do you know what i thought it was?  no
+(ten digits)  dwarf
+oh dear, you really *are* a wizard! ...
+```
+
+Then answer the maintenance questions: hours, holiday, short game length, magic word, restart latency and
+message of the day. Pressing return keeps a default.
+
+`adventure.newgame` is then saved in the game directory, which needs `sma` access for you. Later games start
+from it straight away. Magic mode ("magic mode" as the first command) saves a new one.
+
+The 1980 defaults still apply on Multics:
+
+- **Prime time.** On weekdays from 8:00 to 16:59, the cave is closed to everyone but wizards; other players are
+  offered a short "demo" game. Change the hours in magic mode ("do you wish to change the hours?").
+- **Restart latency.** A suspended game can't be restored for 90 minutes.
+
+## Letting others play
+
+Give other users:
+
+- `r` access to `adventure.data` and `adventure.newgame`;
+- `re` access to the object segments;
+- `s` access to the directory.
+
+For example:
+
+```
+set_acl adventure.data r *.*.*
+set_acl adventure.newgame r *.*.*
+set_acl (adventure adv462_io_ addr size getime adventure_) re *.*.*
+```
+
+Players type `>udd>Games>adv462>adventure`, or add the directory to their search rules.
+
+SUSPEND *name* saves a game as `name.adv462` in the player's home directory. RESTORE *name* continues it.
+
+## If the compiler objects
+
+The 1980 program was compiled by the "new" Fortran compiler of late 1979, which is the current one. Some things
+may trip it up:
+
+- **`and`, `or`, `xor`.** The program defines its own functions with these names. Today's compiler has typeless
+  built-ins of the same names that do the same thing. If it complains about the three function definitions,
+  delete them.
+- **Free-form source.** The 1980 listing had three statements longer than 72 columns, so it was compiled in the
+  default free form, not with `-card`. The working copy has none, but free form is still the intended way.
+- **The `!` character.** It now starts a comment, but here it only appears inside `1h!` Hollerith constants and
+  quoted strings.
+- **Storage.** The compiler's default storage class is automatic. All program units are in one source segment,
+  which the compiler documentation says keeps their values.
+
+The PL/I side depends on the following:
+
+- **Argument types.** Arguments arrive from Fortran without descriptors:
+  - logical as `bit (1) aligned`;
+  - integer as `fixed bin (35)`;
+  - `fname` as ten words each holding one character.
+- **Library routines.** It uses `initiate_file_`, `terminate_file_`, `hcs_$fs_get_path_name`,
+  `user_info_$homedir` and `iox_`.
+
+Please report any errors, and they will be fixed here.
