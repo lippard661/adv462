@@ -50,7 +50,9 @@ No other copy of this version is known to exist.
 | 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | written, see [`multics/`](multics/); **not yet compiled on Multics** |
 | 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, not yet built on OpenBSD |
 
-[`multics/CHANGES.md`](multics/CHANGES.md) lists every change from the 1980 listings.
+[`multics/CHANGES.md`](multics/CHANGES.md) lists every change from the 1980 listings. Among them, the working copy
+finishes both of Jim's 1980 experiments on the listing: TAKE/DROP ALL, and packing text in base 90 instead of 64,
+which lets the database be in mixed case.
 
 ### Porting to Unix
 

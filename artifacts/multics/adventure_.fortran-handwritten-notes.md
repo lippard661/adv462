@@ -94,3 +94,5 @@ Jim was experimenting with how dcode1 should decode against the 90-entry chrset 
 /90 vs /64 for the shift). Since code1/code2 pack 6-bit fields (shift(result,6)), 64/64 is the consistent choice;
 the lowercase table puts every packable character in entries 1-64, so no change is needed. (The uppercase entries
 65-90 only matter for input, which cvltuc lowercases first.)
+2026: implemented the other way round in the working copy: code1/code2/dcode1 now pack in base 90 (mod 90, /90),
+so capitals fit and the database was converted to mixed case. See multics/CHANGES.md.

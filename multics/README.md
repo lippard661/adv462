@@ -15,6 +15,7 @@ Written for current Multics (MR12.8 on the DPS8M simulator). **Not yet compiled 
 | `adv462_io_.pl1` | `ldcomn`, `svcomn` (save and load games), `advatt`, `advdet` (attach and detach the database) |
 | `addr.pl1`, `size.pl1`, `getime.pl1` | The other routines Palter left to the site |
 | `build.ec` | Compiles everything and adds the names |
+| `recase/` | The scripts that converted the database to mixed case (see CHANGES.md) |
 | `CHANGES.md` | What was changed and why |
 
 ## Building

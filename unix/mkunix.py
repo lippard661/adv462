@@ -49,17 +49,17 @@ out = replace_unit(out, r'^      integer function code1\(words\)', r'''
       integer function code1(words)
 c  convert external characters to internal format (5 chars/integer).
 c  unix version: words is a character*5 literal.  same table as code2
-c  (index-1 of the character in the table, 6 bits per character).
+c  (index-1 of the character in the table, packed in base 90).
       implicit integer(a-z)
       character*5 words
-      character*64 tab
+      character*90 tab
       tab=' !"#$%&''()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz'
-     &  //'[\]^_'
+     &  //'[\]^_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
       result=0
       do 10 i=1,5
          chridx=index(tab,words(i:i))
          if(chridx.eq.0)chridx=15
-         result=result*64+chridx-1
+         result=result*90+chridx-1
    10 continue
       code1=result
       return

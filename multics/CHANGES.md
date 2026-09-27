@@ -58,10 +58,46 @@ They are finished here, using his variable names and statement labels:
 | `/msccom/` and `cmszes` | The save area ended at `maxdie`, before the Platt variables. `mushturn` was not in the block at all. SUSPEND/RESTORE lost the state of the whole Platt area. | Save through `djinn`, the new last variable; `mushturn` added. |
 | `cmszes` | `mtext` was saved to 34 of 35 and `mtdtxt` to 90 of 100. | Whole arrays. |
 | After `ldcomn(.true.)` | The image saved in magic mode carries the random seed, so every game replayed the same dwarves. | `r=0` after loading. |
-| motd | A new message of the day was packed without lowercasing. Capitals don't fit the six-bit code. | `cvltuc` first. |
 | getin | Read `line(71)` at the end of a full line. `lgword` was not cleared after a word of exactly five letters. | Both fixed. |
 | 8243 (score format) | Line longer than 72 columns. | Split. |
 | ioinit | Called `attach_fortran_ssfile_`, a 1980 routine that no longer exists, with a hard-coded path. | Calls `advatt` (below). |
+
+## Mixed case: Jim's other 1980 note
+
+Words were packed five characters at a time, six bits each. That gave room for only 64 of the 90 characters in
+`chrset`, so a capital letter spilled into its neighbour. The one capital in the 1980 database, "Over" in the
+bulletin (message 202), printed as `!.ver`.
+
+Beside `dcode1`, Jim wrote "try several combinations of 90 and 64, 64 and 90".
+
+- **The packing change.** `code1`, `code2` and `dcode1` now pack in base 90 (`result*90+index`, `mod 90`,
+  `/90`). All 90 characters fit, capitals included. 90⁵−1 = 5,904,899,999 still fits in a positive 36-bit
+  integer.
+- **What stays the same.** Nothing else depends on the six-bit layout.
+  - Commands are still lowercased by `cvltuc` before packing, so the vocabulary (section 4) stays lowercase.
+  - A new message of the day keeps whatever case the wizard types.
+  - `adventure.newgame` and saved games made before the change are not compatible. None existed yet.
+
+The database text (sections 1, 2, 5, 6, 10 and 12) is now in mixed case. Only letter case changed: every line
+has the same characters and length as before.
+
+- **Tools.** The conversion was done by [`recase/recase.py`](recase/recase.py). Where three consecutive words
+  match a mixed-case edition, it copies that edition's casing:
+  - Woods' text is taken from Arthur O'Dwyer's faithful C translation of Woods 350 and from Knuth's
+    `advent.w`;
+  - Platt's text is taken from his 1984 `ADVENTURE.ACODE` and O'Dwyer's translation of it;
+  - all of these come from [Quuxplusone/Advent](https://github.com/Quuxplusone/Advent) at commit `2532f15`.
+
+  Everything else gets sentence capitalization and "I".
+- **Hand corrections.** [`recase/overrides.py`](recase/overrides.py) holds about 50 corrections:
+  - the local texts: the credits in message 1, the 1980 news and the list of Multics games;
+  - quoted commands in the help text, made "QUIT", "FAST" etc. to match "SUSPEND";
+  - dialogue tags ("...idiot!" he storms);
+  - the djinn's speeches. Platt 1984 has them all in capitals, which matched only piecemeal, so they are in
+    ordinary sentence case.
+- **Conventions.** Signs follow Woods' mixed-case editions ("MAGIC WORD XYZZY", "STOP! PAY TROLL!"). Platt's
+  rooms follow Platt ("Twopit Room", "Audience Hall"). Multics pathnames and `jjl.sct` stay as printed.
+  `>$<` comment lines stay lowercase.
 
 ## Database errata fixed in `adventure.data`
 

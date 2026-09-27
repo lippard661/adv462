@@ -2583,18 +2583,18 @@ c  dcode1, cvltuc, cvstb)
       integer function code1(words)
 c  convert external characters to internal format (5 chars/integer).
 c  unix version: words is a character*5 literal.  same table as code2
-c  (index-1 of the character in the table, 6 bits per character).
+c  (index-1 of the character in the table, packed in base 90).
       implicit integer(a-z)
       external ran
       character*5 words
-      character*64 tab
+      character*90 tab
       tab=' !"#$%&''()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz'
-     &  //'[\]^_'
+     &  //'[\]^_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
       result=0
       do 10 i=1,5
          chridx=index(tab,words(i:i))
          if(chridx.eq.0)chridx=15
-         result=result*64+chridx-1
+         result=result*90+chridx-1
    10 continue
       code1=result
       return
@@ -2637,7 +2637,8 @@ c  (see conversion guide)
             if(chars(i).eq.chrset(chridx))goto 2
     1    continue
          chridx=15
-    2    result=shift(result,6)+chridx-1
+c  2026: base 90 (see code1).
+    2    result=result*90+chridx-1
    10 continue
 
       code2=result
@@ -2675,10 +2676,11 @@ c  (see conversion guide)
 
       valcpy=value
 
+c  2026: base 90 (see code1).
       do 10 i=1,5
          ii=6-i
-         chridx=mod(valcpy,64)+1
-         valcpy=valcpy/64
+         chridx=mod(valcpy,90)+1
+         valcpy=valcpy/90
          result(ii)=chrset(chridx)
    10 continue
 
@@ -3679,10 +3681,7 @@ c  wizard.  else print the current one.  message is initially null.
       call mspeak(24)
       goto 55
 
-c  2026: lowercase the line first (as getin does for commands); capitals
-c  don't fit in the six-bit packing and came out as garbage.
-   60 call cvltuc(text,70)
-      do 62 i=1,70
+   60 do 62 i=1,70
          k=71-i
          if(text(k).ne.blank)goto 65
    62 continue

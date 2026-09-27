@@ -2585,6 +2585,11 @@ c  the first five characters of words are converted to their internal
 c  representation (sixbit).  if a character has no representation, it is
 c  replaced by a period.
 c
+c  2026: packed in base 90 instead of six bits, so that all 90 characters
+c  of chrset fit, capitals included (jim's 1980 note on dcode1: "try
+c  several combinations of 90 and 64").  90**5-1 = 5904899999 still fits
+c  in a positive 36-bit integer.
+c
 c  definition of constants:
 c       nwords = number of integer variables needed to hold five chars
 c       nchars = number of characters stored in an integer variable
@@ -2628,7 +2633,7 @@ c  (see conversion guide)
                if(char.eq.and(chrset(chridx),chrmsk))goto 2
     1       continue
             chridx=15
-    2       result=shift(result,6)+chridx-1
+    2       result=result*90+chridx-1
     5    continue
    10 continue
 
@@ -2673,7 +2678,8 @@ c  (see conversion guide)
             if(chars(i).eq.chrset(chridx))goto 2
     1    continue
          chridx=15
-    2    result=shift(result,6)+chridx-1
+c  2026: base 90 (see code1).
+    2    result=result*90+chridx-1
    10 continue
 
       code2=result
@@ -2710,10 +2716,11 @@ c  (see conversion guide)
 
       valcpy=value
 
+c  2026: base 90 (see code1).
       do 10 i=1,5
          ii=6-i
-         chridx=mod(valcpy,64)+1
-         valcpy=valcpy/64
+         chridx=mod(valcpy,90)+1
+         valcpy=valcpy/90
          result(ii)=chrset(chridx)
    10 continue
 
@@ -3696,10 +3703,7 @@ c  wizard.  else print the current one.  message is initially null.
       call mspeak(24)
       goto 55
 
-c  2026: lowercase the line first (as getin does for commands); capitals
-c  don't fit in the six-bit packing and came out as garbage.
-   60 call cvltuc(text,70)
-      do 62 i=1,70
+   60 do 62 i=1,70
          k=71-i
          if(text(k).ne.blank)goto 65
    62 continue
