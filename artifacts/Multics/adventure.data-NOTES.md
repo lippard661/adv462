@@ -17,7 +17,7 @@ Summary of findings:
   permanent wheat-coloured bridge, fog rooms as separate numbered rooms).
 - Lines not in Platt 1984 at all: marble corridor/staircase/garden (143-147), crystal medallion, bulletin board.
 - Some lines were hand-typed after the conversion (literal "000", new vocab comments at column 12).
-- Version "adventure 1.2 (462 points)"; maintainer jjl (lippard.scouting@pco-multics).
+- Version "adventure 1.2 (462 points)"; maintainer jjl (Lippard.Scouting@PCO-Multics; printed in lowercase).
 - Known data errors kept as printed: see ERRATA (location 185 run-on row; fog room 204 direction 47 twice).
 
 Remaining paper checks (optional): nothing blocking. Spacing reconstructed by rule + Jim's counts.

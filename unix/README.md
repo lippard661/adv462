@@ -27,7 +27,7 @@ ADV462_DIR=. ./adv462
 
 `mkunix.py` changes very little: the list is at its top and in [`../Multics/CHANGES.md`](../Multics/CHANGES.md).
 The program runs with 64-bit integers (`-fdefault-integer-8`), since it was written for 36-bit words and packs
-five six-bit characters into one.
+five characters into one (in base 90, so capitals fit).
 
 Suspended games go in `~/.adv462/` (or `$ADV462_SAVEDIR`). They are raw images of the common blocks, so they
 only load into a build of the same version on the same kind of machine. A file of the wrong length is refused.

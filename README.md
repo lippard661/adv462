@@ -33,7 +33,7 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - a maximum score of 462.
   Maintained by Jim Lippard (`jjl.sct`, `Lippard.Scouting@PCO-Multics`) as part of the Scouting project
   (Explorer Post 414) on the Phoenix Multics system. It ran from `>udd>MED>Kaiser>Lippard`, with storage
-  quota courtesy of Wendell Garry Kaiser of Honeywell.
+  quota courtesy of Garry Kaiser of Honeywell.
 - **Source file name:** `adventure_.fortran`. On Multics, a trailing underscore marks a subroutine rather
   than a command. The Multics Fortran compiler of 1980 names a main program's entry point `main_`, so
   `adventure_` could not be typed as a command at all. It must have been run by a small `adventure` command
@@ -47,7 +47,7 @@ No other copy of this version is known to exist.
 | Step | State |
 |---|---|
 | 1. Artifacts: transcriptions and notes | done, see [`artifacts/`](artifacts/) |
-| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, PL/I wrapper and missing routines supplied | written, see [`Multics/`](Multics/); **not yet compiled on Multics** |
+| 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, mixed-case text supported and the database converted to mixed case, PL/I wrapper and missing routines supplied | written, see [`Multics/`](Multics/); **not yet compiled on Multics** |
 | 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, not yet built on OpenBSD |
 
 [`Multics/CHANGES.md`](Multics/CHANGES.md) lists every change from the 1980 listings. Among them, the working copy
@@ -61,7 +61,8 @@ The port was feasible with little change, so it is a generated copy rather than 
 - `unix/mkunix.py` makes `unix/adv462.f` from the Multics source by replacing a few machine-dependent routines;
 - a small C file supplies the save and restore routines;
 - gfortran compiles the 1970s Fortran with `-std=legacy` and 64-bit integers, since the program packs five
-  six-bit characters into a 36-bit word.
+  characters into each 36-bit word. They are now packed in base 90 rather than six bits apiece, which is what
+  makes mixed-case text possible (see [`Multics/CHANGES.md`](Multics/CHANGES.md)).
 
 Every fix is made once, in the Multics source, and both versions read the same `adventure.data`.
 
