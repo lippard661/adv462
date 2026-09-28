@@ -42,10 +42,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #ifdef __OpenBSD__
 #include <err.h>
 #include <time.h>
-#include <unistd.h>
 #endif
 
 #define NBLOCKS 11
@@ -71,12 +71,12 @@ exists(const char *path, int want_dir)
 	return want_dir ? S_ISDIR(sb.st_mode) : S_ISREG(sb.st_mode);
 }
 
-/* dir/name if it exists in the game directory, else in the share directory. */
+/* dir/name if it is readable in the game directory, else in the share directory. */
 static void
 find_file(const char *name, char *path, size_t len)
 {
 	snprintf(path, len, "%s/%s", ADV462_GAMEDIR, name);
-	if (!exists(path, 0))
+	if (!exists(path, 0) || access(path, R_OK) != 0)
 		snprintf(path, len, "%s/%s", ADV462_DIR, name);
 }
 
@@ -249,37 +249,30 @@ total_bytes(const fint *cmszes)
 }
 
 /*
- * ldcomn(l, fname, cmadrs, cmszes).  On any failure the common blocks are
- * left untouched, so the player simply continues in a fresh game (as the
- * RESTORE comment in the main program says).
+ * Load an image from path into the common blocks.  Returns 0 if loaded,
+ * 1 if the file can't be opened, 2 if it is the wrong length (made by a
+ * different build); in both failure cases nothing is changed.
  */
-void
-ldcomn_(fint *l, fint *fname, fint *cmadrs, fint *cmszes)
+static int
+load_image(const char *path, const fint *cmadrs, const fint *cmszes)
 {
-	char path[1100];
 	FILE *fp;
 	char *buf, *p;
 	long want, got;
 	int i;
 
-	if (image_path(*l, 0, fname, path, sizeof(path)) != 0)
-		return;
-	if ((fp = fopen(path, "rb")) == NULL) {
-		if (!*l)
-			printf(" (no saved game %s)\n", path);
-		return;
-	}
+	if ((fp = fopen(path, "rb")) == NULL)
+		return 1;
 	want = total_bytes(cmszes);
 	if ((buf = malloc(want + 1)) == NULL) {
 		fclose(fp);
-		return;
+		return 1;
 	}
 	got = (long)fread(buf, 1, want + 1, fp);
 	fclose(fp);
 	if (got != want) {
-		printf(" (%s is not a saved game for this version)\n", path);
 		free(buf);
-		return;
+		return 2;
 	}
 	for (i = 0, p = buf; i < NBLOCKS; i++) {
 		size_t n = (size_t)cmszes[i] * sizeof(fint);
@@ -288,6 +281,37 @@ ldcomn_(fint *l, fint *fname, fint *cmadrs, fint *cmszes)
 		p += n;
 	}
 	free(buf);
+	return 0;
+}
+
+/*
+ * ldcomn(l, fname, cmadrs, cmszes).  On any failure the common blocks are
+ * left untouched, so the player simply continues in a fresh game (as the
+ * RESTORE comment in the main program says).  For the new-game image, a
+ * copy in the game directory that can't be used (unreadable, or made by a
+ * different build) falls back to the installed one in the share directory.
+ */
+void
+ldcomn_(fint *l, fint *fname, fint *cmadrs, fint *cmszes)
+{
+	char path[1100];
+	int r;
+
+	if (image_path(*l, 0, fname, path, sizeof(path)) != 0)
+		return;
+	r = load_image(path, cmadrs, cmszes);
+	if (r != 0 && *l && getenv("ADV462_DIR") == NULL &&
+	    strncmp(path, ADV462_GAMEDIR "/", strlen(ADV462_GAMEDIR) + 1) == 0) {
+		if (r == 2)
+			printf(" (%s was made by a different version; using the"
+			    " installed one)\n", path);
+		snprintf(path, sizeof(path), "%s/adventure.newgame", ADV462_DIR);
+		r = load_image(path, cmadrs, cmszes);
+	}
+	if (r == 1 && !*l)
+		printf(" (no saved game %s)\n", path);
+	else if (r == 2)
+		printf(" (%s is not a saved game for this version)\n", path);
 }
 
 /* svcomn(l, fname, cmadrs, cmszes). */
