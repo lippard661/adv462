@@ -17,17 +17,22 @@ HOMEPAGE =	https://github.com/lippard661/adv462
 # Woods, Palter and Platt retain their rights in the game (see README.md)
 PERMIT_PACKAGE =	Yes
 
-WANTLIB +=	c m
-
-MODULES =	fortran
-MODFORTRAN_COMPILER =	gfortran
+# gfortran from lang/gcc/15, as for adv550.  (The fortran module would
+# instead require the ports tree's current default GCC.)
+BUILD_DEPENDS =	lang/gcc/15,-f95
+LIB_DEPENDS =	lang/gcc/15,-libs
+WANTLIB +=	c m gfortran>=10
+.if ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "i386"
+WANTLIB +=	quadmath
+.endif
 
 # The portable Fortran source (generated from the Multics source by
 # mkunix.py and checked in) and its Makefile are in unix/
 WRKSRC =	${WRKDIST}/unix
 
 # GAMEDIR is the writable game directory (created by pkg/PLIST)
-MAKE_FLAGS =	SHAREDIR=${TRUEPREFIX}/share/adv462 GAMEDIR=/usr/games/adv462
+MAKE_FLAGS =	FC=${LOCALBASE}/bin/egfortran \
+		SHAREDIR=${TRUEPREFIX}/share/adv462 GAMEDIR=/usr/games/adv462
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/adv462 ${PREFIX}/bin

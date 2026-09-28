@@ -1,6 +1,6 @@
 # OpenBSD port
 
-A port of `games/adv462` that builds `../unix/` with gfortran from `lang/gcc` (the `fortran` module).
+A port of `games/adv462` that builds `../unix/` with gfortran from `lang/gcc/15`, as adv550 does.
 
 To build:
 
