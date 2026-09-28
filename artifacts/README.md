@@ -38,9 +38,9 @@ pages.
 
 Each printout stack is photographed front and back, and the photos sit next to the transcription:
 
-- `Multics/adventure.data-front.jpg`, `Multics/adventure.data-back.jpg`
-- `Multics/adventure_.fortran-front.jpg`, `Multics/adventure_.fortran-back.jpg`
-- `gcos/adv.fortran-front.jpg`, `gcos/adv.fortran-back.jpg`
+- `adventure.data`: [front](Multics/adventure.data-front.jpeg), [back](Multics/adventure.data-back.jpeg)
+- `adventure_.fortran`: [front](Multics/adventure_.fortran-front.jpeg), [back](Multics/adventure_.fortran-back.jpeg)
+- `gcos/adv.fortran`: [front](gcos/adv.fortran-front.jpeg), [back](gcos/adv.fortran-back.jpeg)
 
 The page-by-page photographs used for the transcription are not included (about 90 photos, over 100 MB).
 
