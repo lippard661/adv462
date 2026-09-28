@@ -1,6 +1,10 @@
 # OpenBSD port
 
-A port of `games/adv462` that builds `../unix/` with gfortran from `lang/gcc` (the `fortran` module).
+A port of `games/adv462` that builds `../unix/` with gfortran from `lang/gcc/15`, as adv550 does.
+
+A signed package built from this port for OpenBSD 7.9 on amd64 is here as `adv462-1.0.tgz`. It can be
+verified with the signify public key https://www.discord.org/lippard/software/discord.org-2026-pkg.pub.
+It needs `lang/gcc/15`'s runtime libraries, which `pkg_add` installs as a dependency.
 
 To build:
 
