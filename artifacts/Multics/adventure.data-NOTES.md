@@ -19,6 +19,7 @@ Summary of findings:
 - Some lines were hand-typed after the conversion (literal "000", new vocab comments at column 12).
 - Version "adventure 1.2 (462 points)"; maintainer jjl (Lippard.Scouting@PCO-Multics; printed in lowercase).
 - Known data errors kept as printed: see ERRATA (location 185 run-on row; fog room 204 direction 47 twice).
+- 2026-09-27: the 35/110 "25 feet away" lines were re-transcribed (ERRATA 5, withdrawn).
 
 Remaining paper checks (optional): nothing blocking. Spacing reconstructed by rule + Jim's counts.
 
@@ -171,17 +172,17 @@ All new rooms; no Woods equivalent. The connections are internally consistent wi
 3. Message 82: remove the two "0" fields: `      82                      --- poof!! ---` (Woods: three tabs).
 4. Section 7, object 89 (wall2) listed three times; only the last line (200 -1) takes effect as the code reads it.
    Decide in the working copy how the three tunnel blockers should work (probably needs code support).
-5. Section 1, locations 35 and 110: the continuation lines print as `    3525 feet away there is a similar window...`
-   and `   11025 feet away ...`. Woods has `35<tab>25 FEET AWAY...` and `110<tab>25 FEET AWAY...`. These are the only two
-   message lines in Woods whose text begins with a digit. The conversion program deleted the tab and then
-   right-justified the whole leading run of digits, so the "25" was swallowed into the location number.
-   How Palter's reader (`format(1i8,70a1,a1)`) handles them:
-   - It sees location 3525 (or 11025) and text " feet away...".
-   - ltext(3525) is stored out of bounds (locsiz is 250).
-   - Because the next line's loc (35) differs from oldloc, ltext(35) is reset. Room 35's long description would show
-     only "shadowy figure can be seen there peering back at you." (likewise 110).
-   Fix: `      35` + `25 feet away there is a similar window looking into a lighted room.  a` (and the same for 110).
-   This is also a fingerprint of the converter: it wrote this file for an i8 reader.
+5. (Withdrawn 2026-09-27: a transcription error, not an erratum.) Section 1, locations 35 and 110, the lines
+   beginning "25 feet away there is a similar window...". These are the only two message lines in Woods whose text
+   begins with a digit (Woods: `35<tab>25 FEET AWAY...`, `110<tab>25 FEET AWAY...`). On paper the digits run
+   together ("3525", "11025"). The transcription first right-justified the whole run of digits as though it were
+   the location number, giving `    3525 feet away...` and `   11025 feet away...`, and this was listed as a
+   conversion bug that the i8 read would misparse as location 3525.
+   Arthur O'Dwyer questioned the whitespace, and Jim agreed it was a transcription error. The simpler reading is
+   that the file has the location number in its usual 8-column field and the text "25 feet away..." from column 9:
+   `      3525 feet away...` and `     11025 feet away...`. That makes the text exactly 70 characters, the full
+   `70a1` width, like Woods' line, and the program reads it correctly. adventure.src and adventure.data are
+   corrected; the working database never needed a change for this.
 ## Page 18 (section 4, 37 right through 1054 coins)
 - Identical to Woods except seven new motion words after 77 fork:
   `78 stairc`, `78 stairs`, `79 garden`, `80 ice`, `81 divis`, `82 morio`, `83 peelg`.
