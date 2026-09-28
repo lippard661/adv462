@@ -32,8 +32,17 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
     - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
   - **Provenance:** how the material reached Multics is unknown. It may have come through contacts between
     Honeywell's Multics, CP-6 and GCOS people, and it may derive from Platt material earlier than his 1979
-    release. So it can't be taken as a picture of Platt's game as it stood in 1980, and some of the differences
-    (the marble corridor, the bulletin board, the crystal medallion) may be local Multics additions.
+    release. So it can't be taken as a picture of Platt's game as it stood in 1980.
+  - **The marble corridor and crystal medallion** are not in the 1984 source, but the evidence says they are
+    earlier Platt material that was later cut, not Multics additions:
+    - Platt's fake Y2 (room 177) describes "a passage to the north", copying a real Y2 that had one. The
+      corridor is that passage, north from the real Y2 (33). The 1984 fake Y2 has no north passage, matching a
+      real Y2 without the corridor.
+    - The corridor's rooms (143–147) and motion words (78 STAIRS, 79 GARDEN) are numbered inside the Platt
+      block, before rooms and words that are in the 1984 source, rather than appended after it.
+    - The medallion lies in the corridor's garden.
+  - **The bulletin board** is the one Platt-range item that may be local. It displays the May 1980 news, and
+    Platt 1984 has a NEWS command instead.
 - **Local changes:**
   - new verbs (FAST, FULL, LISTEN, TURNS, SLAY, STOP, "." for the version);
   - named SUSPEND/RESTORE;
