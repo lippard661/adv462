@@ -43,11 +43,16 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - **The bulletin board** is the one Platt-range item that may be local. It displays the May 1980 news, and
     Platt 1984 has a NEWS command instead.
 - **New verbs**, all implemented here in Palter's engine:
-  - **From Platt:** FAST and FULL, SLAY (as KILL) and STOP (as QUIT), and the magic words PHUGGG and
-    MELENKURION. All are in the 1984 source with the same meanings, so they probably came with the Platt
-    material. The May 1980 news still announces FAST and FULL as new commands, since they were new to players
-    of this game.
-  - **Not in Platt 1984, possibly local:** LISTEN, TURNS and "." for the version.
+  - **From Platt:** FAST and FULL, STOP (as QUIT), and the magic words PHUGGG and MELENKURION. All are in the
+    1984 source with the same meanings, so they probably came with the Platt material. The May 1980 news still
+    announces FAST and FULL as new commands, since they were new to players of this game.
+  - **From Palter:** SLAY (as KILL) is already in Palter's port as preserved in the SEL-32 copy (HORV0350), and
+    it is also in Platt 1984.
+  - **"." for the version** follows a Multics convention. The "." request of Multics subsystems (most notably
+    those built with `ssu_`, the subsystem utility written by Gary Palter) identifies the subsystem and its
+    version. It is not in Palter's portable Adventure as preserved in HORV0350, or in Platt 1984, so it was
+    probably added on Multics in that tradition.
+  - **Not in Platt 1984, possibly local:** LISTEN and TURNS.
 - **Local changes:**
   - named SUSPEND/RESTORE;
   - a news message dated May 1980;
