@@ -15,7 +15,9 @@ Summary of findings:
 - "Platt 1984" throughout means the surviving A-code source of Platt's 550-point game, dated 18 Sep 1984
   (PLAT0550 in Quuxplusone/Advent). The game itself dates from 1979 (CP-V at Honeywell LADC, then CP-6); the
   1984 file is simply the earliest copy that survives.
-- Platt material from an earlier state than that source merged in: rooms 141-217, objects 65-98, messages 202-270,
+- Platt material, apparently from an earlier stage of his work than that source (how it reached Multics is unknown,
+  possibly via Honeywell Multics/CP-6/GCOS contacts, possibly from before the 1979 release; some of it may be
+  local), merged in: rooms 141-217, objects 65-98, messages 202-270,
   vocabulary additions; several pieces predate Platt 1984 (ice tunnels "under construction", no safe puzzle,
   permanent wheat-coloured bridge, fog rooms as separate numbered rooms).
 - Lines not in Platt 1984 at all: marble corridor/staircase/garden (143-147), crystal medallion, bulletin board.

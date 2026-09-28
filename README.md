@@ -23,13 +23,17 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
     Center for CP-V, then CP-6.
   - **"Platt 1984":** the only surviving source is his A-code database dated 18 September 1984 (preserved by
     Mike Arnautov and in the IF Archive). "Platt 1984" in these notes means that file, not a release date.
-  - **What this copy shows:** the rooms here are often word for word the 1984 text, but they show an earlier
-    state:
+  - **What this copy shows:** the rooms here are often word for word the 1984 text, but differ from it in
+    ways that look like an earlier stage of Platt's work:
     - the ice tunnels are "under construction";
     - there is no safe puzzle;
     - the wheat-stone bridge is permanent;
     - the fog rooms are separate numbered rooms;
     - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
+  - **Provenance:** how the material reached Multics is unknown. It may have come through contacts between
+    Honeywell's Multics, CP-6 and GCOS people, and it may derive from Platt material earlier than his 1979
+    release. So it can't be taken as a picture of Platt's game as it stood in 1980, and some of the differences
+    (the marble corridor, the bulletin board, the crystal medallion) may be local Multics additions.
 - **Local changes:**
   - new verbs (FAST, FULL, LISTEN, TURNS, SLAY, STOP, "." for the version);
   - named SUSPEND/RESTORE;
