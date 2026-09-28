@@ -64,10 +64,11 @@ Format: line number immediately followed by text, no separator; all lowercase.
 - Differences from Platt 1984 worth noting:
   - **142** (minotaur): lacks Platt's final sentence about a ten-foot rock wall below the statue's feet.
   - **143-147**: marble-columned corridor (3 rooms), collapsed stone staircase, overgrown garden. **Not in Platt 1984 at all.** Later cut, or local additions?
-    2026-09-27: most likely earlier Platt material, later cut. Platt's own fake Y2 (177) describes "a passage to the north",
-    mirroring a real Y2 with the corridor's north exit (33 -> 143); the 1984 FAKE.Y2 lacks it, matching a real Y2 without
-    the corridor. The rooms (143-147) and motion words (78, 79) are numbered inside the Platt block, ahead of rooms and
-    words that are in the 1984 source. (Room 33's own description was not updated to mention the north passage.)
+    2026-09-27: more likely earlier Platt material, later cut, than a local addition, though not certain. The rooms
+    (143-147) and motion words (78, 79) are numbered inside the Platt block, ahead of rooms and words that are in the
+    1984 source. The corridor is entered north from Woods' Y2 (33 -> 143), whose description was not updated to
+    mention it. (Platt's fake Y2, 177, mentions "a passage to the north", but that is its own north exit to the
+    catacombs, 177 -> 179, not evidence about the real Y2. In the 1984 source FAKE.Y2 has no north exit.)
   - **148**: "a deep resonant chanting" (Platt: "a deep, resonant").
   - **150**: "dead.  later" (two spaces; Platt one).
   - **151**: "the ledge once continues south" [sic] (Platt: "continued").
