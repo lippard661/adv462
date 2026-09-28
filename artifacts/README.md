@@ -55,7 +55,7 @@ port and extended with early Dave Platt material.
 | `adventure_.fortran-NOTES.md` | Page-by-page notes, comparison with Woods and Palter (via the SEL-32 transcription HORV0350), a completeness check, and the list of bugs to fix. |
 | `adventure_.fortran-handwritten-notes.md` | Jim Lippard's handwritten ink annotations on the listing. The main one is an unfinished implementation of TAKE ALL / DROP ALL. |
 | `adventure.data` | Transcription of the game database (2,699 lines), laid out as printed. The first field is right-justified in 8 columns and text starts in column 9, matching the program's `i8`/`70a1` reads. |
-| `adventure.data-NOTES.md` | Page-by-page notes, comparison with Woods 350 and Platt 1984, and the ERRATA list. |
+| `adventure.data-NOTES.md` | Page-by-page notes, comparison with Woods 350 and Platt's surviving 1984 A-code source ("Platt 1984"; the game itself dates from 1979), and the ERRATA list. |
 | `transcription-source/` | `adventure.src`, the same database in Woods-style tab-separated form, which is easier to diff. `render.py` regenerates `adventure.data` from it byte for byte. |
 
 ## gcos/: GCOS Adventure (related artifact, printed 1983)

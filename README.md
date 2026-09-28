@@ -17,15 +17,19 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - the `scrmbl` vocabulary hash;
   - common-block save and restore through `svcomn`/`ldcomn`;
   - Palter named as a developer in the game's opening message.
-- **Additions:** early Dave Platt material from before the 1984 A-code release of his 550-point game:
-  rooms 141–217, objects 65–98, messages 202–270 and new vocabulary. The code implements it inside Palter's
-  engine; it is not Platt's own code. The rooms are often word for word Platt's 1984 text, but show an earlier
-  state:
-  - the ice tunnels are "under construction";
-  - there is no safe puzzle;
-  - the wheat-stone bridge is permanent;
-  - the fog rooms are separate numbered rooms;
-  - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
+- **Additions:** Dave Platt material related to his 550-point game: rooms 141–217, objects 65–98, messages
+  202–270 and new vocabulary. The code implements it inside Palter's engine; it is not Platt's own code.
+  - **Dating:** Platt's 550-point Adventure dates from 1979. He wrote it at Honeywell's Los Angeles Development
+    Center for CP-V, then CP-6.
+  - **"Platt 1984":** the only surviving source is his A-code database dated 18 September 1984 (preserved by
+    Mike Arnautov and in the IF Archive). "Platt 1984" in these notes means that file, not a release date.
+  - **What this copy shows:** the rooms here are often word for word the 1984 text, but they show an earlier
+    state:
+    - the ice tunnels are "under construction";
+    - there is no safe puzzle;
+    - the wheat-stone bridge is permanent;
+    - the fog rooms are separate numbered rooms;
+    - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
 - **Local changes:**
   - new verbs (FAST, FULL, LISTEN, TURNS, SLAY, STOP, "." for the version);
   - named SUSPEND/RESTORE;
