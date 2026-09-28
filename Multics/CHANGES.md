@@ -118,8 +118,9 @@ The numbers match the ERRATA list in
    - Until MELENKURION, the moves between 142 and 164, 168 and 200 are blocked in both directions with
      message 243 as a plain refusal. After it, they are open.
    - Object 89 is placed nowhere, so the code's wall2 check (2015) is no longer reached.
-5. **Locations 35 and 110.** The conversion had merged "25 feet away..." into the location number
-   (`3525`, `11025`). Fixed.
+5. **Locations 35 and 110.** Withdrawn. This was first taken for a conversion error ("25 feet away..." merged
+   into the location number), but it was a transcription error, now corrected in the artifact. The database was
+   right as printed.
 6. **`>$<` markers.** Six of Platt's objects had a single space between `>$<` and a comment. The program only
    recognizes `>$<` followed by two blanks, so "`>$< (part of location)`" was printed to the player. A second
    space is added, as in Woods' entries.
