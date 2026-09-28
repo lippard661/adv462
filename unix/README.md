@@ -34,5 +34,12 @@ The game looks for `adventure.data` and `adventure.newgame` first in the writabl
 `adventure.newgame` in `GAMEDIR` if that directory exists. This is the Unix counterpart of `>site>adv462_dir` on
 Multics. Setting `ADV462_DIR` or `ADV462_DATA` overrides both directories.
 
+On OpenBSD the program restricts itself with unveil(2) and pledge(2) as soon as it starts (built in, under
+`#ifdef __OpenBSD__`; a no-op elsewhere). It can then only do stdio and read, write and create files in:
+- `SHAREDIR`, read only;
+- `GAMEDIR`;
+- the save directory;
+- any `ADV462_DATA` or `ADV462_DIR` given in the environment.
+
 Suspended games go in `~/.adv462/` (or `$ADV462_SAVEDIR`). They are raw images of the common blocks, so they
 only load into a build of the same version on the same kind of machine. A file of the wrong length is refused.

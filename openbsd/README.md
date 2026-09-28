@@ -9,7 +9,7 @@ It needs `lang/gcc/15`'s runtime libraries, which `pkg_add` installs as a depend
 To build:
 
 1. Copy this directory to `/usr/ports/mystuff/games/adv462`.
-2. Tag the repository `v1.0` on GitHub.
+2. Tag the repository `v${V}` on GitHub, where V is set in the Makefile (1.1 adds unveil and pledge).
 3. Run `make makesum` to create `distinfo`, then `make package`.
 
 It installs:

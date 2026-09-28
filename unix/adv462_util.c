@@ -42,6 +42,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#ifdef __OpenBSD__
+#include <err.h>
+#include <time.h>
+#include <unistd.h>
+#endif
 
 #define NBLOCKS 11
 #define NAMECHARS 10
@@ -95,10 +100,76 @@ advdat_(char *buf, size_t len)
 	memset(buf + n, ' ', len - n);
 }
 
+#ifdef __OpenBSD__
+/* unveil(path, perm), tolerating a path whose parent doesn't exist. */
+static void
+unveil_path(const char *path, const char *perm)
+{
+	if (path == NULL || *path == '\0')
+		return;
+	if (unveil(path, perm) == -1 && errno != ENOENT)
+		err(1, "unveil %s", path);
+}
+#endif
+
+/*
+ * OpenBSD: restrict the whole process with unveil(2) and pledge(2).  The
+ * Fortran program and these routines are one process, so this is done once,
+ * on the first call from the game (addr, at the very start of the main
+ * program, before any file is touched), and holds for the rest of the game.
+ * Visible afterwards:
+ *   ADV462_DIR (compiled in)   r    adventure.data, adventure.newgame
+ *   ADV462_GAMEDIR             rwc  the same, and magic mode's new image
+ *   $ADV462_SAVEDIR, else
+ *   $HOME/.adv462              rwc  suspended games
+ *   $ADV462_DATA               r    (environment override)
+ *   $ADV462_DIR                rwc  (environment override, used by the build)
+ * and the process may only do stdio and read/write/create files there.
+ * Elsewhere this is a no-op.
+ */
+static void
+restrict_process(void)
+{
+#ifdef __OpenBSD__
+	static int done;
+	const char *p;
+	char path[1024];
+
+	if (done)
+		return;
+	done = 1;
+
+	tzset();		/* load the time zone before /etc is hidden */
+
+	unveil_path(ADV462_DIR, "r");
+	unveil_path(ADV462_GAMEDIR, "rwc");
+	unveil_path(getenv("ADV462_DATA"), "r");
+	unveil_path(getenv("ADV462_DIR"), "rwc");
+
+	p = getenv("ADV462_SAVEDIR");
+	if (p != NULL && *p != '\0')
+		unveil_path(p, "rwc");
+	else {
+		p = getenv("HOME");
+		if (p == NULL || *p == '\0')
+			p = ".";
+		if (snprintf(path, sizeof(path), "%s/.adv462", p) <
+		    (int)sizeof(path))
+			unveil_path(path, "rwc");
+	}
+
+	if (unveil(NULL, NULL) == -1)
+		err(1, "unveil");
+	if (pledge("stdio rpath wpath cpath", NULL) == -1)
+		err(1, "pledge");
+#endif
+}
+
 /* call addr(x, cmadrs(1,n)): store the address of x in the first word. */
 void
 addr_(void *x, fint *where)
 {
+	restrict_process();
 	where[0] = (fint)(intptr_t)x;
 }
 

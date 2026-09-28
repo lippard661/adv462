@@ -2,7 +2,7 @@
 
 COMMENT =	Adventure 1.2 (462 points) from Phoenix Multics, 1980
 
-V =		1.0
+V =		1.1
 DISTNAME =	adv462-${V}
 
 GH_ACCOUNT =	lippard661
