@@ -2,7 +2,7 @@
 
 COMMENT =	Adventure 1.2 (462 points) from Phoenix Multics, 1980
 
-V =		1.1
+V =		1.2
 DISTNAME =	adv462-${V}
 
 GH_ACCOUNT =	lippard661
@@ -32,7 +32,7 @@ WRKSRC =	${WRKDIST}/unix
 
 # GAMEDIR is the writable game directory (created by pkg/PLIST)
 MAKE_FLAGS =	FC=${LOCALBASE}/bin/egfortran \
-		SHAREDIR=${TRUEPREFIX}/share/adv462 GAMEDIR=/usr/games/adv462
+		SHAREDIR=${TRUEPREFIX}/share/adv462 GAMEDIR=/var/games/adv462
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/adv462 ${PREFIX}/bin

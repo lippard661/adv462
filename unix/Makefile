@@ -19,7 +19,7 @@ BINDIR?=	$(PREFIX)/bin
 SHAREDIR?=	$(PREFIX)/share/adv462
 # The writable game directory: magic mode saves adventure.newgame here if the
 # directory exists, and files here are used in preference to SHAREDIR's.
-GAMEDIR?=	/usr/games/adv462
+GAMEDIR?=	/var/games/adv462
 MANDIR?=	$(PREFIX)/man/man6
 DESTDIR?=
 

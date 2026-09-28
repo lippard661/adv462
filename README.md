@@ -76,7 +76,7 @@ No other copy of this version is known to exist.
 | 2. Working Multics version: bugs fixed, TAKE/DROP ALL finished, mixed-case text supported and the database converted to mixed case, PL/I wrapper and missing routines supplied | done, see [`Multics/`](Multics/); compiles, binds and runs on MR12.8 (DPS8M) |
 | 3. Unix / gfortran port and OpenBSD package, reading the same data file | done, see [`unix/`](unix/) and [`openbsd/`](openbsd/); play-tested on Linux, packaged on OpenBSD 7.9 (amd64) |
 
-A signed OpenBSD package, [`openbsd/adv462-1.0.tgz`](openbsd/adv462-1.0.tgz), is built for OpenBSD 7.9 on amd64.
+Signed OpenBSD packages for OpenBSD 7.9 on amd64 are in [`openbsd/`](openbsd/) as `adv462-`*version*`.tgz`; use the newest.
 It can be verified with the signify public key
 https://www.discord.org/lippard/software/discord.org-2026-pkg.pub
 
@@ -123,7 +123,7 @@ adv462/
 │   ├── adv462_util.c         # Site routines in C
 │   ├── Makefile, adv462.6, README.md
 └── openbsd/                  # OpenBSD port (Makefile, distinfo, pkg/DESCR, pkg/PLIST)
-    └── adv462-1.0.tgz        # Signed package for OpenBSD 7.9 amd64
+    └── adv462-*.tgz          # Signed packages for OpenBSD 7.9 amd64
 ```
 
 ## Licensing and credits

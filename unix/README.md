@@ -30,7 +30,7 @@ The program runs with 64-bit integers (`-fdefault-integer-8`), since it was writ
 five characters into one (in base 90, so capitals fit).
 
 The game looks for `adventure.data` and `adventure.newgame` first in the writable game directory `GAMEDIR`
-(default `/usr/games/adv462`), then in `SHAREDIR` (default `/usr/local/share/adv462`). Magic mode saves a new
+(default `/var/games/adv462`), then in `SHAREDIR` (default `/usr/local/share/adv462`). Magic mode saves a new
 `adventure.newgame` in `GAMEDIR` if that directory exists. This is the Unix counterpart of `>site>adv462_dir` on
 Multics. Setting `ADV462_DIR` or `ADV462_DATA` overrides both directories.
 

@@ -33,7 +33,7 @@
  *                  (default $HOME/.adv462/<name>.adv462; name defaults to "game")
  * SHAREDIR (ADV462_DIR at compile time, default /usr/local/share/adv462)
  * holds the files as installed; GAMEDIR (ADV462_GAMEDIR, default
- * /usr/games/adv462) is the writable game directory.
+ * /var/games/adv462) is the writable game directory.
  */
 
 #include <errno.h>
@@ -57,7 +57,7 @@ typedef int64_t fint;           /* Fortran INTEGER with -fdefault-integer-8 */
 #define ADV462_DIR "/usr/local/share/adv462"
 #endif
 #ifndef ADV462_GAMEDIR
-#define ADV462_GAMEDIR "/usr/games/adv462"
+#define ADV462_GAMEDIR "/var/games/adv462"
 #endif
 
 /* Does path exist as a regular file (want_dir 0) or directory (1)? */

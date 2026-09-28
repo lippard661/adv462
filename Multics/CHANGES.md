@@ -154,7 +154,7 @@ above is in both versions. The generator changes only these things:
 - `datime` uses DATE_AND_TIME;
 - `ran` and `size` are declared EXTERNAL (both are gfortran intrinsics);
 - getin stops at end of input;
-- the writable game directory is `/usr/games/adv462`, the counterpart of `>site>adv462_dir`;
+- the writable game directory is `/var/games/adv462`, the counterpart of `>site>adv462_dir`;
 - the default hours have no prime time;
 - on OpenBSD, `adv462_util.c` confines the process with unveil and pledge. In 1980 the cave was closed to all but wizards 8:00–16:59 on weekdays.
   Magic mode can still set hours.
