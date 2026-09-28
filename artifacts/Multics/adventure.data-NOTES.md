@@ -212,6 +212,7 @@ All new rooms; no Woods equivalent. The connections are internally consistent wi
   Treasures appear to be 1065-1071 (medal/crystal, opals/casket, helmet, mithril ring, jade bracelet, sceptre, yacht);
   1080+ are non-treasure props. "slime2", "ogre2", "wall2" are 5+ letters.
 - Verbs 2001-2025 identical to Woods except two added synonyms: **2012 slay** (after strik) and **2018 stop** (after quit).
+  (Both are in Platt 1984: `VERB KILL,ATTACK,FIGHT,HIT,STRIKE,SLAY` and `VERB QUIT,STOP,Q`.)
 - **Comment columns**: the new comments `(real slime)`, `(real ogre)`, `(wall description)`, `(real wall)` all start at
   column 12 (right after "slime2 "), measured cleanly. Woods' four comments on the previous sheet measure at about
   column 13-14; set to 14 (Jim leans toward 4 spaces after "geyse"). So the two batches were likely typed separately.
@@ -220,6 +221,7 @@ All new rooms; no Woods equivalent. The connections are internally consistent wi
 ## Page 20 (end of section 4; section 5 objects 1-24)
 - Vocabulary 2025 fie ... 3147 swim matches Woods except:
   - new action verbs **2032 fast, 2033 full, 2034 listen, 2035 turns** (the "new commands" advertised in message 202),
+    of which FAST and FULL are in Platt 1984 (same meanings); LISTEN and TURNS are not,
     plus **2036 phugg** and **2037 melen** (melenkurion; cf. the tool room's "melenkurion division").
   - **3139 stop is gone** (it became 2018 stop, a synonym of quit).
   - "3079 fucke" added after assho.

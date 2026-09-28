@@ -42,8 +42,13 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
       mention a north passage.
   - **The bulletin board** is the one Platt-range item that may be local. It displays the May 1980 news, and
     Platt 1984 has a NEWS command instead.
+- **New verbs**, all implemented here in Palter's engine:
+  - **From Platt:** FAST and FULL, SLAY (as KILL) and STOP (as QUIT), and the magic words PHUGGG and
+    MELENKURION. All are in the 1984 source with the same meanings, so they probably came with the Platt
+    material. The May 1980 news still announces FAST and FULL as new commands, since they were new to players
+    of this game.
+  - **Not in Platt 1984, possibly local:** LISTEN, TURNS and "." for the version.
 - **Local changes:**
-  - new verbs (FAST, FULL, LISTEN, TURNS, SLAY, STOP, "." for the version);
   - named SUSPEND/RESTORE;
   - a news message dated May 1980;
   - a maximum score of 462.
