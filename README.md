@@ -88,8 +88,10 @@ No other copy of this version is known to exist.
 | 12 May 1980 | `adventure_.fortran` and `adventure.data` (this game) printed on Phoenix Multics; the game's news is dated May 1980 | Printer headers, [`artifacts/`](artifacts/) |
 | after 1979 | Platt reimplements the executive in PL-6 for CP-6 | Platt, 2026 |
 | 15 July 1983 | The separate GCOS port of Woods 350 printed on Phoenix Multics | [`artifacts/gcos/`](artifacts/gcos/) |
-| 18 September 1984 | Date of Platt's surviving A-code source ("Platt 1984") | IF Archive; Mike Arnautov |
-| mid-1980s | Prime FORTRAN 77 conversion of Platt's Fortran executive and munger, later the basis of adv550 | Arnautov |
+| 18 September 1984 | Date of Platt's surviving A-code source ("Platt 1984"), preserved in the IF Archive together with the PL-6 munger and executive | Mike Arnautov's README, 2003 |
+| mid-1980s | Prime FORTRAN 77 version of Platt's executive and munger in circulation, "converted to Prime F77 by Anon, on an unknown date" | Header of the F77 executive |
+| 29 March 1989 | Arnautov's version 09.02 at Glaxo, optimised for Prime and with his own additions | Header of the F77 executive |
+| 26 January 2003 | Arnautov reconstructs the mid-1980s F77 sources by stripping his later additions from the Glaxo 1989 versions, found in a private archive. He writes: "I am unaware of any other significant differences from Dave Platt's original code." These sources are the basis of [adv550](https://github.com/lippard661/adv550). | Arnautov's README |
 | 2026 | This game transcribed and revived | This repository |
 
 ### What the evidence says about Platt and this game
@@ -104,9 +106,14 @@ structure/database." His "original FORTRAN release" was followed by "the later P
   that design. The surviving FORTRAN 77 executive is a table-driven A-code interpreter, and none of Woods' or
   Palter's routines or data structures appear in it. It descends from the CP-V Fortran by way of the Prime
   conversion, not from PL-6:
-  - Platt recognizes it as his original Fortran code.
+  - Platt recognizes it as his original Fortran code, and Arnautov knew of no significant differences from it.
   - Its style (hundreds of GOTOs, arithmetic IFs, almost no block IFs) is that of the older Fortran, not of a
     translation from structured PL-6.
+
+  What carried over from Woods and Palter were features rather than code. The executive's system-dependent
+  routines are HOURS, NEWS and SVAR, and Arnautov recalls that the game as played in the 1980s enforced a delay
+  before a saved game could be restored. Opening hours and a restore latency are Woods' and Palter's; this game
+  has them too, along with its news.
 - **Before A-code, his starting point was probably Palter's port.** Palter's was the Multics Fortran Adventure,
   built to be ported and sent out with a conversion guide, and Platt says his copy may have come through
   Multics. The vocabulary supports this. SLAY is Palter's addition to Woods' vocabulary. Platt kept it in his
