@@ -7,32 +7,36 @@ This repository preserves the surviving listings of that game as transcribed art
 playable again on Multics and on Unix (with an OpenBSD port), following the pattern of
 [adv550](https://github.com/lippard661/adv550).
 
+No other copy of this version is known to exist.
+
 ## What this version is
 
-- **Base:** Don Woods' 350-point Fortran Adventure (1977), after Will Crowther's original. Woods' data and
-  code are recognizable throughout.
+- **Base:** Don Woods' 350-point Fortran Adventure (1977), after Will Crowther's original (1976). Woods' data
+  and code are recognizable throughout.
 - **Engine:** Gary Palter's MIT-Multics Fortran port of Woods. Palter's hallmarks are all present:
   - the common blocks (`/msccom/`, `/ioscom/`, `/mtdcom/`);
   - five-character words packed with `code1`/`code2`;
   - the `scrmbl` vocabulary hash;
   - common-block save and restore through `svcomn`/`ldcomn`;
   - Palter named as a developer in the game's opening message.
+
+  Palter's port itself doesn't survive, but a descendant does: a SEL-32 port printed in March 1979 and
+  transcribed by Arthur O'Dwyer (HORV0350). About three quarters of this program's executable lines match
+  it, in the same order.
 - **Additions:** Dave Platt material related to his 550-point game: rooms 141–217, objects 65–98, messages
-  202–270 and new vocabulary. The code implements it inside Palter's engine; it is not Platt's own code.
-  - **Dating:** Platt's 550-point Adventure dates from 1979. He wrote it at Honeywell's Los Angeles Development
-    Center for CP-V, then CP-6.
-  - **"Platt 1984":** the only surviving source is his A-code database dated 18 September 1984 (preserved by
-    Mike Arnautov and in the IF Archive). "Platt 1984" in these notes means that file, not a release date.
+  202–270 and new vocabulary. The new creatures and puzzles (the slime, ogre, djinn, basilisks, PHUGGG) are
+  coded by hand in Fortran inside Palter's engine, not written in Platt's later A-code. Who wrote that code is
+  an open question; see [Lineage](#lineage).
+  - **"Platt 1984":** the only surviving source of Platt's game is his A-code database dated 18 September
+    1984 (preserved by Mike Arnautov and in the IF Archive). "Platt 1984" in these notes means that file. The
+    game itself was released in 1979.
   - **What this copy shows:** the rooms here are often word for word the 1984 text, but differ from it in
-    ways that look like an earlier stage of Platt's work:
+    ways that look like an earlier stage of Platt's work, not a cut-down copy of it:
     - the ice tunnels are "under construction";
     - there is no safe puzzle;
     - the wheat-stone bridge is permanent;
     - the fog rooms are separate numbered rooms;
     - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
-  - **Provenance:** how the material reached Multics is unknown. It may have come through contacts between
-    Honeywell's Multics, CP-6 and GCOS people, and it may derive from Platt material earlier than his 1979
-    release. So it can't be taken as a picture of Platt's game as it stood in 1980.
   - **The marble corridor and crystal medallion** are not in the 1984 source. They look more like earlier Platt
     material that was later cut than like Multics additions, though that isn't certain:
     - The corridor's rooms (143–147) and motion words (78 STAIRS, 79 GARDEN) are numbered inside the Platt
@@ -46,8 +50,8 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - **From Platt:** FAST and FULL, STOP (as QUIT), and the magic words PHUGGG and MELENKURION. All are in the
     1984 source with the same meanings, so they probably came with the Platt material. The May 1980 news still
     announces FAST and FULL as new commands, since they were new to players of this game.
-  - **From Palter:** SLAY (as KILL) is already in Palter's port as preserved in the SEL-32 copy (HORV0350), and
-    it is also in Platt 1984.
+  - **From Palter:** SLAY (as KILL) is already in Palter's port as preserved in HORV0350. It is not in Woods,
+    and it is also in Platt 1984, appended to the same list (`KILL, ATTACK, FIGHT, HIT, STRIKE, SLAY`).
   - **"." for the version** follows a Multics convention. The "." request of Multics subsystems (most notably
     those built with `ssu_`, the subsystem utility written by Gary Palter) identifies the subsystem and its
     version. It is not in Palter's portable Adventure as preserved in HORV0350, or in Platt 1984, so it was
@@ -55,18 +59,85 @@ playable again on Multics and on Unix (with an OpenBSD port), following the patt
   - **Not in Platt 1984, possibly local:** LISTEN and TURNS.
 - **Local changes:**
   - named SUSPEND/RESTORE;
-  - a news message dated May 1980;
+  - a news message dated May 1980, announcing about 50 new rooms;
   - a maximum score of 462.
+
   Maintained by Jim Lippard (`jjl.sct`, `Lippard.Scouting@PCO-Multics`) as part of the Scouting project
   (Explorer Post 414) on the Phoenix Multics system. It ran from `>udd>MED>Kaiser>Lippard`, with storage
-  quota courtesy of Garry Kaiser of Honeywell.
+  quota courtesy of Garry Kaiser of Honeywell. Jim's own 1980 changes were small: his name in the game, an
+  unfinished TAKE/DROP ALL inked on the listing, and a note on packing text in base 90 so it could be in mixed
+  case. He is confident he did not write the code for the slime, ogre, djinn, basilisks or PHUGGG, and doubts
+  that he added the new rooms.
 - **Source file name:** `adventure_.fortran`. On Multics, a trailing underscore marks a subroutine rather
   than a command. The Multics Fortran compiler of 1980 names a main program's entry point `main_`, so
   `adventure_` could not be typed as a command at all. It must have been run by a small `adventure` command
   calling `adventure_$main_`, probably written in PL/I along with the routines missing from the listing
-  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`Multics/`](Multics/) has new ones, with the command named `adv462`.
+  (`addr`, `size`, `ldcomn`, `svcomn`, `getime`). None of these survive; [`Multics/`](Multics/) has new ones,
+  with the command named `adv462`.
 
-No other copy of this version is known to exist.
+## Lineage
+
+| Date | Event | Source |
+|---|---|---|
+| 1976 | Will Crowther's original Adventure, in Fortran on the PDP-10 | |
+| 1977 | Don Woods' 350-point version, also Fortran on the PDP-10 | |
+| by November 1977 | Gary Palter's port on MIT-Multics, written to be portable and sent out with a "conversion guide" | Comments in HORV0350; Dick Reynolds' derived "HCSD version 01.112777" |
+| 21 March 1979 | SEL-32 descendant of Palter's port printed (Reynolds, then Ned Horvath and C. Norwood, 1978) | HORV0350 |
+| 1978–79 | Dave Platt, at Honeywell's Los Angeles Development Center, starts from "a FORTRAN IV implementation of the original Crowther/Woods code" that reached LADC on a Honeywell user-group source tape, and "might actually have passed through Multics on its way to us" | Platt, email to Eric Swenson, 12 September 2026 |
+| 1 December 1979 | Platt's release notice for his 550-point Adventure on CP-V (Xerox Sigma-9). It is already his own design: a small executive written in Fortran, running game logic written in his A-code | Ken Wellsch's C version, posted to net.sources.games 7 July 1986 (Wellsch rewrote the Sigma-9 version, keeping the executive and A-code design) |
+| 12 May 1980 | `adventure_.fortran` and `adventure.data` (this game) printed on Phoenix Multics; the game's news is dated May 1980 | Printer headers, [`artifacts/`](artifacts/) |
+| after 1979 | Platt reimplements the executive in PL-6 for CP-6 | Platt, 2026 |
+| 15 July 1983 | The separate GCOS port of Woods 350 printed on Phoenix Multics | [`artifacts/gcos/`](artifacts/gcos/) |
+| 18 September 1984 | Date of Platt's surviving A-code source ("Platt 1984") | IF Archive; Mike Arnautov |
+| mid-1980s | Prime FORTRAN 77 conversion of Platt's Fortran executive and munger, later the basis of adv550 | Arnautov |
+| 2026 | This game transcribed and revived | This repository |
+
+### What the evidence says about Platt and this game
+
+In his own words, Platt started from "a FORTRAN IV implementation of the original Crowther/Woods code - it came
+to Honeywell LADC on one of the Honeywell user-group source distribution tapes, and might actually have passed
+through Multics on its way to us." He then developed "the A-code system" and made "changes … to the cave
+structure/database." His "original FORTRAN release" was followed by "the later PL-6 re-implementation for CP-6".
+
+- **Platt's released game ran on his own engine.** The 1979 CP-V release was already an executive running
+  A-code, not a modified Woods program. Wellsch rewrote it from the Sigma-9, where PL-6 did not run, and kept
+  that design. The surviving FORTRAN 77 executive is a table-driven A-code interpreter, and none of Woods' or
+  Palter's routines or data structures appear in it. It descends from the CP-V Fortran by way of the Prime
+  conversion, not from PL-6:
+  - Platt recognizes it as his original Fortran code.
+  - Its style (hundreds of GOTOs, arithmetic IFs, almost no block IFs) is that of the older Fortran, not of a
+    translation from structured PL-6.
+- **Before A-code, his starting point was probably Palter's port.** Palter's was the Multics Fortran Adventure,
+  built to be ported and sent out with a conversion guide, and Platt says his copy may have come through
+  Multics. The vocabulary supports this. SLAY is Palter's addition to Woods' vocabulary. Platt kept it in his
+  A-code, as the last word of the same list (`KILL, ATTACK, FIGHT, HIT, STRIKE, SLAY`), so his vocabulary came
+  from Palter's database rather than Woods' own. On its own, SLAY is a natural synonym that two people could
+  have added independently.
+- **This game looks like the stage in between.** It has Palter's engine and Palter's version of the Woods
+  database, with Platt's material coded by hand in Fortran rather than in A-code. The listing was printed five
+  months after Platt's December 1979 release, but its Platt rooms show an earlier stage of his work (see above).
+  Two readings fit:
+  1. Platt first added his material directly to Palter's port, before writing A-code. A copy of that stage
+     reached Phoenix Multics and was still being played and extended there in 1980.
+  2. Someone at Honeywell took material from Platt's 1979 release and coded it into Palter's engine by hand.
+     This would more likely have produced faithful copies of the 550 rooms and messages than the earlier-looking
+     versions found here.
+
+  The first reading fits the evidence better.
+- **What would settle it:**
+  - **Platt's memory of the stage before A-code.** Did his material first live in the Woods program he started
+    from, and did a copy of it go anywhere, such as Phoenix?
+  - **His fan-fold listing of the original CP-V FORTRAN release.** Since that release was already A-code, the
+    listing will probably show his own executive, not Palter's engine. Any leftovers would still count: Palter's
+    word packing (`code1`/`code2`), `scrmbl`, or save and restore through `ldcomn`/`svcomn`. Four-character word
+    packing like the GCOS port's would point to GCOS instead.
+
+### Other Honeywell Adventures
+
+- **GCOS:** a separate port of Woods 350, found with these listings and transcribed in
+  [`artifacts/gcos/`](artifacts/gcos/). It is not an ancestor of this game.
+- **Multics PL/I:** a PL/I translation of Woods from an IBM PL/I version (credited to "BRD"), later ported to
+  Multics by Charles Anthony ("CAC"). It is unrelated to Palter's port and to this game.
 
 ## Status
 
@@ -131,5 +202,9 @@ adv462/
 The BSD license covers Jim Lippard's contributions: the transcriptions, notes, fixes and porting work.
 Will Crowther and Don Woods retain whatever rights they hold in Adventure, Gary Palter in his Multics port,
 and Dave Platt in his game content.
+
+Platt's 1979 release notice gave permission "to all users to possess, use, copy, distribute, and modify (but
+not to sell)" his programs and files. In September 2026 he confirmed that he has never wanted to limit the use
+of his A-code system or of his changes to the cave and its database, and asked only for attribution.
 
 Transcription, analysis, fixes and porting by Jim Lippard, with assistance from Claude (Anthropic), September 2026.
