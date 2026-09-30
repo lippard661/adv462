@@ -143,8 +143,10 @@ structure/database." His "original FORTRAN release" was followed by "the later P
 
 - **GCOS:** a separate port of Woods 350, found with these listings and transcribed in
   [`artifacts/gcos/`](artifacts/gcos/). It is not an ancestor of this game.
-- **Multics PL/I:** a PL/I translation of Woods from an IBM PL/I version (credited to "BRD"), later ported to
-  Multics by Charles Anthony ("CAC"). It is unrelated to Palter's port and to this game.
+- **Multics PL/I:** a PL/I translation of Woods, written (by "BRD") for Stanford University's IBM 360 under
+  WYLBUR, and later ported to Multics by Charles Anthony ("CAC"). It is unrelated to Palter's port and to this
+  game. Its IBM origin shows in the code Anthony commented out, such as a terminal-read routine declared
+  `options (asm inter)`.
 
 ## Status
 
