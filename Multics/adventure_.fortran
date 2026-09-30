@@ -1043,9 +1043,14 @@ c  make neg.  if neg, he skipped a word, so make it zero.
 
  2608 foobar=min0(0,-foobar)
       allflg=.false.
-      if(turns.eq.0.and.wd1.eq.code1('magic').and.
-     &wd2.eq.code1('mode '))call maint(cmadrs,cmszes)
-      if(wd1.eq.code1('resto'))goto 8400
+c  2026: after magic mode, go on to the next command.  "magic mode" used to
+c  fall through as an ordinary command and get "I don't know that word."
+c  (Woods ended the program after maint; Palter's maint returns.)
+      if(turns.ne.0.or.wd1.ne.code1('magic').or.
+     &wd2.ne.code1('mode '))goto 2618
+      call maint(cmadrs,cmszes)
+      goto 2012
+ 2618 if(wd1.eq.code1('resto'))goto 8400
 
       turns=turns+1
       if(mushturn.ne.0) mushturn=mushturn+1
