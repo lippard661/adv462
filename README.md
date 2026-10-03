@@ -36,7 +36,9 @@ No other copy of this version is known to exist.
     - there is no safe puzzle;
     - the wheat-stone bridge is permanent;
     - the fog rooms are separate numbered rooms;
-    - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have.
+    - there are rooms (the marble corridor, 143–147) that Platt 1984 doesn't have;
+    - the mithril ring is only a treasure, without the powers it gains later (see [Lineage](#lineage));
+    - the singing sword just "sings quietly to itself", with none of its later repertoire.
   - **The marble corridor and crystal medallion** are not in the 1984 source. They look more like earlier Platt
     material that was later cut than like Multics additions, though that isn't certain:
     - The corridor's rooms (143–147) and motion words (78 STAIRS, 79 GARDEN) are numbered inside the Platt
@@ -87,6 +89,7 @@ No other copy of this version is known to exist.
 | 1 December 1979 | Platt's release notice for his 550-point Adventure on CP-V (Xerox Sigma-9). It is already his own design: a small executive written in Fortran, running game logic written in his A-code | Ken Wellsch's C version, posted to net.sources.games 7 July 1986 (Wellsch rewrote the Sigma-9 version, keeping the executive and A-code design) |
 | 12 May 1980 | `adventure_.fortran` and `adventure.data` (this game) printed on Phoenix Multics; the game's news is dated May 1980 | Printer headers, [`artifacts/`](artifacts/) |
 | after 1979 | Platt reimplements the executive in PL-6 for CP-6 | Platt, 2026 |
+| 18 January 1983 | Platt, writing from CP-6 at LADC to Jim Lippard on Phoenix Multics, lists the sources of his material and notes differences between versions of his game | Platt, email to Jim Lippard (Jim's papers; not reproduced) |
 | 15 July 1983 | The separate GCOS port of Woods 350 printed on Phoenix Multics | [`artifacts/gcos/`](artifacts/gcos/) |
 | 18 September 1984 | Date of Platt's surviving A-code source ("Platt 1984"), preserved in the IF Archive together with the PL-6 munger and executive | Mike Arnautov's README, 2003 |
 | mid-1980s | Prime FORTRAN 77 version of Platt's executive and munger in circulation, "converted to Prime F77 by Anon, on an unknown date" | Header of the F77 executive |
@@ -131,6 +134,32 @@ structure/database." His "original FORTRAN release" was followed by "the later P
      versions found here.
 
   The first reading fits the evidence better.
+- **Platt's 1983 email shows the game changing in stages.** Writing to Jim in January 1983, Platt listed the
+  books, stories, radio and television that his material borrows from, and mentioned features that differed
+  between versions:
+  - **The mithril ring** gets you across the wheat-stone bridge, and in the CP-6 version it also deflects the
+    dwarves' knives four times out of five. Platt 1984 has both powers, with the knife defence at exactly
+    those odds. In this game the ring has neither: it is only a treasure the ogre leaves behind, and nothing in
+    the program or the travel table uses it. So the ring marks three stages: this game, the CP-V game, and the
+    CP-6 game.
+  - **The singing sword's repertoire** included, by 1983, a joke that Platt said might not be in the version
+    Jim knew: the sword whistling Edgard Varèse's *Ionisation*, a piece for thirteen percussionists. It is not
+    in Platt 1984 or in any other surviving version. So the 1984 A-code is not a complete record of everything
+    Platt put into the game, and in 1983 differing versions were in circulation. In this game the sword has no
+    repertoire at all.
+  - **Of the sources Platt credits, about half are already in this game:** the mithril ring, the singing sword
+    destroying the ogre, MELENKURION, peelgrunt, the Valley of the Stone Faces, the gooseberry goblins, the
+    statue's clue and the minotaur, the London Dry djinn, the Ruby Yacht of Omar Khayyam, the mushroom wearing
+    off (word for word as in 1984), the Mountain King and his audience hall, and the Sorcerer's Lair. The rest
+    appear only in Platt 1984: THURB and the ice tunnels (here still "under construction"), the Fourier
+    passage, the safe and Rover, Darwin the tortoise, the pirate's beach with its two moons, and the crystal
+    sculpture.
+  - **The crystal sculpture** in Platt 1984 changes into a series of animals (a pig, an eel, an emu, an elf, a
+    mouse and so on), each the name of a CP-V or CP-6 program or module. The last is not: it ends as "a crude
+    sculpture of a very bedraggled phoenix". Platt described the phoenix as a dig at a group of software
+    developers he declined to name. Jim, who became a Multics developer later in 1983, takes it as aimed at
+    Honeywell's Multics developers in Phoenix: Multics, like CP-6, was a minority operating system at Honeywell
+    alongside GCOS. This game has no sculpture.
 - **What would settle it:**
   - **Platt's memory of the stage before A-code.** Did his material first live in the Woods program he started
     from, and did a copy of it go anywhere, such as Phoenix?
