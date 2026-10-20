@@ -19,8 +19,8 @@ PERMIT_PACKAGE =	Yes
 
 # gfortran from lang/gcc/15, as for adv550.  (The fortran module would
 # instead require the ports tree's current default GCC.)
-BUILD_DEPENDS =	lang/gcc/15,-f95
-LIB_DEPENDS =	lang/gcc/15,-libs
+BUILD_DEPENDS =	lang/gcc/16,-f95
+LIB_DEPENDS =	lang/gcc/16,-libs
 WANTLIB +=	c m gfortran>=10
 .if ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "i386"
 WANTLIB +=	quadmath
