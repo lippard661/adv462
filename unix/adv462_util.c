@@ -153,9 +153,16 @@ restrict_process(void)
 		p = getenv("HOME");
 		if (p == NULL || *p == '\0')
 			p = ".";
+		/*
+		 * Make the save directory now if it is missing: a directory
+		 * created after unveil(2) is not unveiled itself, so files
+		 * could not then be created inside it.
+		 */
 		if (snprintf(path, sizeof(path), "%s/.adv462", p) <
-		    (int)sizeof(path))
+		    (int)sizeof(path)) {
+			(void)mkdir(path, 0700);
 			unveil_path(path, "rwc");
+		}
 	}
 
 	if (unveil(NULL, NULL) == -1)
